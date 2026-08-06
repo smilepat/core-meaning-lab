@@ -43,8 +43,8 @@ export interface GradeResult {
   level: Level;
   feedback: string;
   model_answer: string;
-  /** claude = API 채점, offline = 키가 없거나 호출이 실패했을 때의 폴백 */
-  engine: "claude" | "offline";
+  /** gemini = API 채점, offline = 키가 없거나 호출이 실패했을 때의 폴백 */
+  engine: "gemini" | "offline";
 }
 
 export interface ContextGradeRequest {

@@ -1,39 +1,42 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { GoogleGenAI, Type } from "@google/genai";
 import type { ContextTask, GradeResult, Level, Score, Word } from "../shared/types.ts";
 import { LEVEL_BY_SCORE } from "../shared/types.ts";
 import { offlineContext, offlineReverse } from "./offline.ts";
 
-// 채점 모델. 짧은 학습자 답안을 판단하는 작업이라 effort 는 낮게 두고,
-// 적응형 사고(adaptive thinking)는 켜 둔다 — 끄면 응답에 사고 흔적이 새는 경우가 있다.
-const MODEL = "claude-opus-5";
-const EFFORT = "low";
+// 채점 모델. 짧은 학습자 답안을 판단하는 작업이라 flash 계열로 충분하다.
+const MODEL = "gemini-3.6-flash";
 
-/** 구조화 출력 스키마. 이게 형식을 강제하므로 프롬프트에서 "JSON만 출력" 지시는 뺐다. */
+/**
+ * 구조화 출력 스키마. 이게 형식을 강제하므로 프롬프트에서 "JSON만 출력" 지시는 뺐다.
+ * score 를 문자열 enum 으로 둔 이유: Gemini 스키마의 enum 은 문자열 배열만 받는다
+ * (Schema.enum?: string[]). 정수로 두면 값을 강제할 수 없어 0~2 밖의 숫자가 올 수 있다.
+ * 아래 normalize() 에서 숫자로 되돌린다.
+ */
 const GRADE_SCHEMA = {
-  type: "object",
+  type: Type.OBJECT,
   properties: {
     score: {
-      type: "integer",
-      enum: [0, 1, 2],
+      type: Type.STRING,
+      enum: ["0", "1", "2"],
       description: "0=미흡, 1=보통, 2=우수",
     },
     level: {
-      type: "string",
+      type: Type.STRING,
       enum: ["미흡", "보통", "우수"],
       description: "score 와 짝이 맞아야 한다",
     },
     feedback: {
-      type: "string",
+      type: Type.STRING,
       description: "학습자에게 보여 줄 한국어 1~2문장 피드백",
     },
     model_answer: {
-      type: "string",
+      type: Type.STRING,
       description: "모범 답안",
     },
   },
   required: ["score", "level", "feedback", "model_answer"],
-  additionalProperties: false,
-} as const;
+  propertyOrdering: ["score", "level", "feedback", "model_answer"],
+};
 
 const CONTEXT_SYSTEM = `당신은 한국인 영어 학습자를 가르치는 어휘 튜터입니다. 학생이 영어 단어의 '문맥 속 의미'를 얼마나 정확히 파악했는지 채점합니다.
 
@@ -71,16 +74,16 @@ function reverseUserMessage(word: Word, senseLabel: string, answer: string): str
 학생이 만든 영어 문장: "${answer}"`;
 }
 
-let client: Anthropic | null = null;
+let client: GoogleGenAI | null = null;
 
 /** API 키가 있을 때만 클라이언트를 만든다. 키가 없으면 전부 오프라인 폴백으로 간다. */
-export function isClaudeEnabled(): boolean {
-  return Boolean(process.env.ANTHROPIC_API_KEY);
+export function isGeminiEnabled(): boolean {
+  return Boolean(process.env.GEMINI_API_KEY);
 }
 
-function getClient(): Anthropic {
+function getClient(): GoogleGenAI {
   if (!client) {
-    client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    client = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
   }
   return client;
 }
@@ -99,31 +102,28 @@ function normalize(raw: unknown): GradeResult | null {
   const modelAnswer = String(o.model_answer ?? "").trim();
   if (!feedback) return null;
 
-  return { score, level, feedback, model_answer: modelAnswer, engine: "claude" };
+  return { score, level, feedback, model_answer: modelAnswer, engine: "gemini" };
 }
 
-async function callClaude(system: string, userMessage: string): Promise<GradeResult | null> {
-  const response = await getClient().messages.create({
+async function callGemini(system: string, userMessage: string): Promise<GradeResult | null> {
+  const response = await getClient().models.generateContent({
     model: MODEL,
-    max_tokens: 2048,
-    thinking: { type: "adaptive" },
-    output_config: {
-      effort: EFFORT,
-      format: { type: "json_schema", schema: GRADE_SCHEMA },
+    contents: userMessage,
+    config: {
+      systemInstruction: system,
+      responseMimeType: "application/json",
+      responseSchema: GRADE_SCHEMA,
+      maxOutputTokens: 2048,
     },
-    system,
-    messages: [{ role: "user", content: userMessage }],
   });
 
-  // 안전 분류기가 요청을 거절하면 content 가 비어 있거나 잘려 있다.
-  // 어휘 채점에서 일어날 일은 아니지만, 일어나면 오프라인 폴백으로 넘긴다.
-  if (response.stop_reason === "refusal") return null;
-
-  const text = response.content.find((b) => b.type === "text");
+  // 안전 필터에 걸리면 text 가 비어 있다. 어휘 채점에서 일어날 일은 아니지만,
+  // 일어나면 오프라인 폴백으로 넘긴다.
+  const text = response.text;
   if (!text) return null;
 
   try {
-    return normalize(JSON.parse(text.text));
+    return normalize(JSON.parse(text));
   } catch {
     return null;
   }
@@ -134,9 +134,9 @@ export async function gradeContext(
   task: ContextTask,
   answer: string,
 ): Promise<GradeResult> {
-  if (isClaudeEnabled()) {
+  if (isGeminiEnabled()) {
     try {
-      const graded = await callClaude(CONTEXT_SYSTEM, contextUserMessage(word, task, answer));
+      const graded = await callGemini(CONTEXT_SYSTEM, contextUserMessage(word, task, answer));
       if (graded) return graded;
       console.warn(`[grade] context ${word.id}: 응답을 해석하지 못해 오프라인으로 폴백합니다.`);
     } catch (error) {
@@ -150,9 +150,9 @@ export async function gradeReverse(word: Word, answer: string): Promise<GradeRes
   const sense = word.senses.find((s) => s.key === word.reverse.senseKey) ?? word.senses[0];
   const senseLabel = sense?.label ?? word.core.ko;
 
-  if (isClaudeEnabled()) {
+  if (isGeminiEnabled()) {
     try {
-      const graded = await callClaude(REVERSE_SYSTEM, reverseUserMessage(word, senseLabel, answer));
+      const graded = await callGemini(REVERSE_SYSTEM, reverseUserMessage(word, senseLabel, answer));
       if (graded) return graded;
       console.warn(`[grade] reverse ${word.id}: 응답을 해석하지 못해 오프라인으로 폴백합니다.`);
     } catch (error) {

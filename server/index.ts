@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { CORE30 } from "../shared/core30.ts";
 import type { ContextGradeRequest, ReverseGradeRequest } from "../shared/types.ts";
-import { gradeContext, gradeReverse, isClaudeEnabled } from "./grade.ts";
+import { gradeContext, gradeReverse, isGeminiEnabled } from "./grade.ts";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, "..");
@@ -18,7 +18,8 @@ const wordsById = new Map(CORE30.map((w) => [w.id, w]));
 const MAX_ANSWER_LENGTH = 500;
 
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true, claudeEnabled: isClaudeEnabled(), words: CORE30.length });
+  // aiEnabled 로 이름을 중립적으로 둔다 — 채점 공급자를 바꿔도 클라이언트가 안 흔들린다.
+  res.json({ ok: true, aiEnabled: isGeminiEnabled(), words: CORE30.length });
 });
 
 app.get("/api/words", (_req, res) => {
@@ -69,8 +70,8 @@ const port = Number(process.env.PORT) || 5174;
 app.listen(port, () => {
   console.log(`[server] http://localhost:${port} 에서 대기 중`);
   console.log(
-    isClaudeEnabled()
-      ? "[server] 채점 엔진: Claude API"
-      : "[server] 채점 엔진: 오프라인 폴백 (ANTHROPIC_API_KEY 가 없습니다)",
+    isGeminiEnabled()
+      ? "[server] 채점 엔진: Gemini API"
+      : "[server] 채점 엔진: 오프라인 폴백 (GEMINI_API_KEY 가 없습니다)",
   );
 });

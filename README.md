@@ -26,7 +26,7 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 ```bash
 npm install
 cp .env.example .env      # Windows: copy .env.example .env
-# .env 에 ANTHROPIC_API_KEY 를 채운다
+# .env 에 GEMINI_API_KEY 를 채운다 (https://aistudio.google.com/apikey)
 npm run dev
 ```
 
@@ -34,7 +34,7 @@ npm run dev
 
 ### API 키가 없어도 실행된다
 
-`ANTHROPIC_API_KEY` 가 없으면 앱이 **오프라인 폴백 채점**으로 동작한다. 문자열 매칭
+`GEMINI_API_KEY` 가 없으면 앱이 **오프라인 폴백 채점**으로 동작한다. 문자열 매칭
 수준이라 정확하지 않지만 학습 흐름 자체는 전부 돌아간다. 헤더의 점 표시로 현재 어떤
 엔진을 쓰는지 확인할 수 있다.
 
@@ -55,9 +55,9 @@ core-meaning-lab/
 │   ├─ lib/api.ts         /api 호출 래퍼
 │   ├─ lib/progress.ts    localStorage 진도 기록
 │   └─ styles.css         프로토타입 CSS 그대로 (다크모드 대응)
-├─ server/                Express + Anthropic SDK
+├─ server/                Express + Google Gen AI SDK
 │   ├─ index.ts           라우트 · 입력 검증 · 운영 시 정적 서빙
-│   ├─ grade.ts           Claude 채점 (구조화 출력)
+│   ├─ grade.ts           Gemini 채점 (구조화 출력)
 │   └─ offline.ts         폴백 채점
 ├─ shared/
 │   ├─ types.ts           client·server 공용 타입
@@ -68,16 +68,22 @@ core-meaning-lab/
 
 ## 채점이 동작하는 방식
 
-`server/grade.ts` 가 `claude-opus-5` 를 호출한다. 형식은 프롬프트로 부탁하는 대신
-**구조화 출력(`output_config.format`)의 JSON 스키마로 강제**하므로, 파싱 실패나
-마크다운 코드펜스가 섞여 나오는 문제가 없다.
+`server/grade.ts` 가 `@google/genai` SDK로 `gemini-3.6-flash` 를 호출한다. 형식은
+프롬프트로 부탁하는 대신 **구조화 출력의 스키마로 강제**하므로, 파싱 실패나 마크다운
+코드펜스가 섞여 나오는 문제가 없다.
 
 ```ts
-output_config: {
-  effort: "low",                                    // 짧은 답안 판단이라 낮게
-  format: { type: "json_schema", schema: GRADE_SCHEMA },
+config: {
+  systemInstruction: system,
+  responseMimeType: "application/json",
+  responseSchema: GRADE_SCHEMA,
 }
 ```
+
+스키마에서 `score` 를 문자열 enum `["0","1","2"]` 로 둔 이유가 있다 — Gemini 스키마의
+`enum` 은 **문자열 배열만** 받는다(`Schema.enum?: string[]`). 정수 타입으로 두면 값
+자체를 강제할 수 없어 3이나 -1 이 올 수 있다. 받은 뒤 `normalize()` 에서 숫자로
+되돌리고, `level` 은 응답을 믿지 않고 `score` 에서 다시 계산한다.
 
 호출이 실패하거나 응답을 해석하지 못하면 오프라인 폴백으로 넘어간다 — 학습이 끊기지 않는다.
 

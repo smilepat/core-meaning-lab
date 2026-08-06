@@ -7,7 +7,7 @@ export function ResultCard({ result }: { result: GradeResult }) {
       <div className="head">
         <span className={`badge s${result.score}`}>{result.level}</span>
         <span>{result.score} / 2</span>
-        <span className="eng">{result.engine === "claude" ? "AI 채점" : "오프라인 채점"}</span>
+        <span className="eng">{result.engine === "gemini" ? "AI 채점" : "오프라인 채점"}</span>
       </div>
       <div className="fb">{result.feedback}</div>
       {result.model_answer && (

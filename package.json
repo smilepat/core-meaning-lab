@@ -14,7 +14,7 @@
     "extract:core30": "node scripts/extract-core30.cjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.115.0",
+    "@google/genai": "^2.16.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "react": "^18.3.1",

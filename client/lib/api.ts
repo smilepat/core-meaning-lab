@@ -19,10 +19,10 @@ export async function fetchWords(): Promise<Word[]> {
   return response.json() as Promise<Word[]>;
 }
 
-export async function fetchHealth(): Promise<{ claudeEnabled: boolean }> {
+export async function fetchHealth(): Promise<{ aiEnabled: boolean }> {
   const response = await fetch("/api/health");
   if (!response.ok) throw new Error("서버 상태를 확인하지 못했습니다.");
-  return response.json() as Promise<{ claudeEnabled: boolean }>;
+  return response.json() as Promise<{ aiEnabled: boolean }>;
 }
 
 export function gradeContext(

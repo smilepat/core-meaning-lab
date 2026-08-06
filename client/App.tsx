@@ -19,7 +19,7 @@ const NAV: { stage: Stage; icon: string; label: string }[] = [
 export default function App() {
   const [words, setWords] = useState<Word[]>([]);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [claudeEnabled, setClaudeEnabled] = useState<boolean | null>(null);
+  const [aiEnabled, setAiEnabled] = useState<boolean | null>(null);
   const [wordId, setWordId] = useState<string | null>(null);
   const [stage, setStage] = useState<Stage>("present");
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
@@ -34,8 +34,8 @@ export default function App() {
         setLoadError(e instanceof Error ? e.message : "단어를 불러오지 못했습니다.");
       });
     fetchHealth()
-      .then((h) => setClaudeEnabled(h.claudeEnabled))
-      .catch(() => setClaudeEnabled(false));
+      .then((h) => setAiEnabled(h.aiEnabled))
+      .catch(() => setAiEnabled(false));
   }, []);
 
   const word = useMemo(() => words.find((w) => w.id === wordId), [words, wordId]);
@@ -51,7 +51,7 @@ export default function App() {
   }
 
   const engineLabel =
-    claudeEnabled === null ? "채점 엔진 확인 중…" : claudeEnabled ? "AI 채점 준비됨" : "오프라인 채점";
+    aiEnabled === null ? "채점 엔진 확인 중…" : aiEnabled ? "AI 채점 준비됨" : "오프라인 채점";
 
   return (
     <>
@@ -62,7 +62,7 @@ export default function App() {
               Core Meaning <span>Lab</span>
             </h1>
             <div className="engine">
-              <span className={`dot${claudeEnabled ? " on" : ""}`} />
+              <span className={`dot${aiEnabled ? " on" : ""}`} />
               <span>{engineLabel}</span>
             </div>
           </div>
