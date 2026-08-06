@@ -1,0 +1,128 @@
+# REPO_OPS.md — 멀티 PC 작업 규율 (공용)
+
+> **이 파일은 여러 저장소가 동일하게 유지하는 공용 규율이다.** 한 곳을 고치면
+> 나머지 저장소에도 같은 내용으로 반영한다.
+>
+> 이 프로젝트들은 **여러 PC에서 번갈아** 작업한다. 각 PC의 로컬 메모리(`~/.claude`)는
+> 동기화되지 않으므로, **PC 간에 공유되는 상태는 오직 git 저장소 안의 문서**뿐이다.
+> 어느 PC에서 열어도 아래 규율을 그대로 따른다.
+
+## 0. 우선순위 — 저장소가 항상 이긴다
+
+**GitHub 저장소 안의 문서가 언제나 최우선이다.** 각 PC의 로컬 설정·메모리
+(`~/.claude/CLAUDE.md`, `~/.claude/**/memory/*`, 로컬 `git config`, 과거 세션 기억)는
+전부 **보조**일 뿐이다.
+
+- 로컬 쪽 내용이 저장소 문서와 **어긋나면 저장소 문서를 따른다.** 그리고 어긋났다는
+  사실을 사용자에게 알린다 — 로컬 메모리가 낡았다는 신호다.
+- 로컬 메모리에만 있고 저장소 문서에 없는 규칙은 **저장소에 반영할 후보**다.
+  사용자에게 확인한 뒤 이 파일이나 저장소 `CLAUDE.md`에 옮긴다.
+- 기억나는 내용과 저장소 문서가 다르면, **기억이 아니라 파일을 읽고 판단한다.**
+
+저장소 문서끼리 충돌할 때의 순서:
+
+1. 저장소 루트 `CLAUDE.md` — 이 프로젝트 고유 규칙 (가장 구체적이므로 최우선)
+2. `REPO_OPS.md` — 저장소 공용 규율 (이 파일)
+3. `STATUS.md` / `HANDOFF.md` / `AGENTS.md` / `docs/` — 현재 상태와 맥락
+
+날짜가 다른 문서가 서로 다른 말을 하면 **`git log`로 최신 것을 확인해** 따른다.
+
+## 세션 시작 시 (항상)
+
+0. 저장소 문서를 읽기 **전에** 로컬 기억으로 답하지 않는다 — 위 우선순위 참조.
+1. **`git pull --ff-only`** — 다른 PC가 밀어둔 작업을 먼저 받는다. 충돌이 나면
+   임의로 merge/rebase하지 말고 사용자에게 상태를 보고한다. **pull하기 전 상태로
+   판단하지 않는다** — 로컬이 낡았을 수 있다.
+2. **`STATUS.md` 읽기** — 지금 상태·진행률·다음 할 일.
+3. 깊은 맥락이 필요하면 **`HANDOFF.md` / `AGENTS.md` / `docs/`** 를 읽는다 —
+   구조·아키텍처·제약·git 운영.
+
+## 작업 중
+
+- **작업(task) 하나가 끝날 때마다 즉시 commit + push.** 여러 작업을 모아 한 번에
+  커밋하지 말 것. 사용자가 다른 PC/GitHub에서 진행을 바로 확인하려는 목적이다.
+- 커밋 메시지는 `feat:/fix:/refactor:/docs:/test:/chore:` 접두어 + 한 줄 요약.
+- 커밋 전에 그 저장소의 검증을 돌린다 (`npm test`, 타입체크, 빌드 등 있는 것).
+- 기본 브랜치(`main`)에 직접 커밋해도 된다 — 1인 작업이다.
+
+## 세션 종료 전 (다른 PC가 알아보게)
+
+**`STATUS.md`를 최신화**한다 — 이게 멀티 PC 인수인계의 핵심이다.
+
+frontmatter 형식은 저장소 공통으로 유지한다:
+
+```yaml
+---
+project: <저장소 이름>
+status: active
+progress: <0-100>
+updated: <오늘 날짜 YYYY-MM-DD>
+pc: <이 PC 이름>
+---
+```
+
+본문에서는 "한 줄 상태", 진행 체크리스트 `[ ]/[x]`, "다음에 할 일", "결정 대기"를
+갱신한다. 구조·아키텍처·제약이 바뀌었으면 `HANDOFF.md`도 함께 갱신한다.
+
+그런 다음 `docs: update status`로 commit + push. **push하지 않은 작업은 다른
+PC에서 존재하지 않는 것과 같다.**
+
+## 자동 점검 (repo-ops-system 적용 여부 알림)
+
+규율을 문서로만 두면 지키지 않아도 아무 일이 안 일어난다. 그래서 Claude Code 훅으로
+**세션 시작**과 **세션 종료(Stop)** 때 자동 점검한다.
+
+- `scripts/repo-ops-check.ps1` — 점검 규칙. **저장소가 소유**하므로 pull만 하면 모든 PC가
+  같은 규칙으로 점검받는다. 검사 항목: REPO_OPS.md 존재 · `CLAUDE.md`의 `@REPO_OPS.md`
+  임포트 · git 신원 · origin 대비 behind/ahead · 커밋 안 된 변경 · STATUS.md 존재와
+  최신성(마지막 커밋 날짜와 비교) · 마지막 작업 PC.
+- `scripts/repo-ops-guard.ps1` — 런처. **각 PC의 `~/.claude/`에 1회 설치**한다.
+  현재 저장소에 점검 스크립트가 있으면 실행하고, **없으면 "이 저장소는 repo-ops-system
+  관리 대상이 아니다"라고 경고**한다. 미적용 저장소를 잡아내는 게 이 런처의 존재 이유다.
+
+문제가 없으면 아무 것도 출력하지 않는다.
+
+### 부록: PC 1회 설치
+
+`~/.claude`는 git으로 공유되지 않으므로 **PC마다 한 번** 해야 한다.
+
+```powershell
+Copy-Item scripts\repo-ops-guard.ps1 "$HOME\.claude\repo-ops-guard.ps1" -Force
+```
+
+그리고 `~/.claude/settings.json`의 `hooks`에 아래를 병합한다(기존 키는 유지):
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      { "hooks": [ {
+        "type": "command",
+        "shell": "powershell",
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$HOME\\.claude\\repo-ops-guard.ps1\" -HookEvent SessionStart",
+        "timeout": 30,
+        "statusMessage": "repo-ops 점검 중..."
+      } ] }
+    ],
+    "Stop": [
+      { "hooks": [ {
+        "type": "command",
+        "shell": "powershell",
+        "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$HOME\\.claude\\repo-ops-guard.ps1\" -HookEvent Stop",
+        "timeout": 20
+      } ] }
+    ]
+  }
+}
+```
+
+등록 후 `/hooks`를 한 번 열면 설정이 다시 로드된다. 스크립트는 **UTF-8 BOM**으로
+저장해야 한다 — Windows PowerShell 5.1은 BOM이 없으면 한글을 ANSI로 읽어 파싱에 실패한다.
+
+## PC 차이에서 오는 주의점
+
+- git이 PATH에 없는 PC가 있다 → 그럴 때는
+  `& "C:\Program Files\Git\cmd\git.exe"` 처럼 전체 경로로 호출한다.
+- Windows PowerShell 5.1에는 `&&` / `||` 체이닝이 없다 → `A; if ($?) { B }`.
+- Node가 포터블로 설치된 PC가 있다 → `npm`이 안 잡히면 저장소의 `HANDOFF.md`에
+  적힌 경로를 확인한다.
