@@ -1,12 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import type { GradeResult, Progress, Stage, Word } from "../shared/types.ts";
 import { fetchHealth, fetchWords } from "./lib/api.ts";
-import { loadProgress, masteryColor, masteryPct, recordScore, stampSense } from "./lib/progress.ts";
+import { loadProgress, recordScore, stampSense } from "./lib/progress.ts";
 import { ContextStage } from "./components/ContextStage.tsx";
 import { Present } from "./components/Present.tsx";
 import { Report } from "./components/Report.tsx";
 import { ReverseStage } from "./components/ReverseStage.tsx";
 import { SenseMap } from "./components/SenseMap.tsx";
+import { WordPicker } from "./components/WordPicker.tsx";
+import type { GroupKey } from "./lib/groups.ts";
+import { groupBlurb, wordsInGroup } from "./lib/groups.ts";
 
 const NAV: { stage: Stage; icon: string; label: string }[] = [
   { stage: "present", icon: "📖", label: "제시" },
@@ -21,6 +24,7 @@ export default function App() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [aiEnabled, setAiEnabled] = useState<boolean | null>(null);
   const [wordId, setWordId] = useState<string | null>(null);
+  const [group, setGroup] = useState<GroupKey>("top");
   const [stage, setStage] = useState<Stage>("present");
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
 
@@ -28,7 +32,9 @@ export default function App() {
     fetchWords()
       .then((loaded) => {
         setWords(loaded);
-        setWordId((current) => current ?? loaded[0]?.id ?? null);
+        // 첫 단어는 최우선 30위 중 1번. 학습 순서 자체가 설계의 일부다.
+        const first = wordsInGroup(loaded, "top")[0] ?? loaded[0];
+        setWordId((current) => current ?? first?.id ?? null);
       })
       .catch((e: unknown) => {
         setLoadError(e instanceof Error ? e.message : "단어를 불러오지 못했습니다.");
@@ -66,27 +72,21 @@ export default function App() {
               <span>{engineLabel}</span>
             </div>
           </div>
-          <div className="chips">
-            {words.map((w) => {
-              const pct = masteryPct(progress, w.id);
-              return (
-                <button
-                  key={w.id}
-                  className={`chip${w.id === wordId ? " active" : ""}`}
-                  onClick={() => selectWord(w.id)}
-                >
-                  {w.word}
-                  {pct > 0 && <span className="m" style={{ background: masteryColor(pct) }} />}
-                </button>
-              );
-            })}
-          </div>
+          <WordPicker
+            words={words}
+            group={group}
+            wordId={wordId}
+            progress={progress}
+            onGroup={setGroup}
+            onPick={selectWord}
+          />
         </div>
       </header>
 
       <main className="wrap">
         {loadError && <div className="empty">{loadError}</div>}
         {!loadError && !word && <div className="empty">불러오는 중…</div>}
+        {word && stage === "present" && <p className="groupnote">{groupBlurb(group)}</p>}
         {word && stage === "present" && <Present word={word} onNext={() => setStage("map")} />}
         {word && stage === "map" && (
           <SenseMap
