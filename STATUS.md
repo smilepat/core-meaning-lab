@@ -1,7 +1,7 @@
 ---
 project: core-meaning-lab
 status: active
-progress: 80
+progress: 90
 updated: 2026-08-07
 pc: DESKTOP-JDF6C5D
 ---
@@ -10,10 +10,10 @@ pc: DESKTOP-JDF6C5D
 
 ## 🎯 한 줄 상태
 
-수능 우선순위 체계(1~3군 60개 + 확장 후보 20개 = **80단어**)를 넣고, 테스트 49개를 붙이고,
-브라우저로 5단계를 실제로 돌려 보고, **`main` 푸시 → 자동 배포까지 굳혔다** —
-<https://core-meaning-lab.vercel.app>.
-남은 것은 `GEMINI_API_KEY` 하나다. 지금은 없어서 오프라인 폴백(문자열 매칭)으로 돈다.
+**돌아간다.** 수능 우선순위 80단어 · 테스트 49개 · `main` 푸시 자동 배포 ·
+**실제 Gemini 채점 켜짐** — <https://core-meaning-lab.vercel.app>.
+저장소는 2026-08-07 에 **public** 으로 전환했다 (전환 전 히스토리 시크릿 스캔 통과).
+남은 것은 기능 추가가 아니라 **내용을 300개로 넓히는 일**이다.
 
 ## 📊 진행 체크리스트
 
@@ -35,23 +35,20 @@ pc: DESKTOP-JDF6C5D
 - [x] **PR #1 병합 → `main` 일원화**, 브랜치 정리
 - [x] **git 푸시 자동 배포 성립** — `api/` 엔트리를 커밋되는 shim 으로 바꿔 해결.
       (전에는 CLI 배포만 통하고 git 배포는 함수가 통째로 없었다. README "세 번 넘어졌다" 참고)
-- [ ] 배포 환경에 `GEMINI_API_KEY` 설정 → AI 채점 켜기  ← 현재 위치 (키 선택은 아래 결정 대기)
-- [ ] 80 → 300 확장 (Core Meaning 300)
+- [x] **`GEMINI_API_KEY` 등록 → 실제 AI 채점 동작** (Production·Preview·Development 3개 환경).
+      Preview 는 CLI 가 프롬프트를 요구해 실패 → REST API 로 우회 (전역 규칙대로).
+      로컬·프로덕션에서 정답/오답 각각 확인, 클라이언트 번들에 키 없음도 확인.
+- [x] **저장소 public 전환** — 전환 전 히스토리 전체 시크릿 스캔(.env 커밋 이력·키 패턴) 통과
+- [ ] 80 → 300 확장 (Core Meaning 300)  ← 현재 위치
 
 ## ⏭️ 다음에 할 일 (Next Actions)
 
-1. **`GEMINI_API_KEY` 를 Vercel 에 넣는다.** 아래 "결정 대기"의 키 선택을 먼저 정할 것.
-
-   ```bash
-   vercel env add GEMINI_API_KEY production   # preview, development 도 각각
-   vercel env pull .env.local                 # 로컬 동기화
-   vercel deploy --prod --yes
-   ```
-
-   확인: `curl https://core-meaning-lab.vercel.app/api/health` 의 `aiEnabled` 가 `true` 가 되면 켜진 것.
-2. 실제 학습자에게 한 번 태워 보고 3군(추상 라틴계) 설명이 통하는지 본다.
-   `bridge` 문장이 이 앱의 알맹이라 여기서 막히면 데이터를 고쳐야 한다.
-3. 단어 확장. 3군이 수능 지문에서 효용이 가장 크므로 여기부터 늘리는 게 낫다.
+1. **실제 학습자에게 한 번 태워 본다.** 특히 3군(추상 라틴계)의 어원 설명이 통하는지.
+   `bridge` 문장이 이 앱의 알맹이라, 여기서 막히면 기능이 아니라 **데이터를 고쳐야 한다**.
+2. **단어 확장 (80 → 300).** 3군이 수능 지문에서 효용이 가장 크므로 여기부터 늘리는 게 낫다.
+   `shared/data/tier3.ts` 에 이어 붙이고 `rank` 만 다시 매기면 된다 — 겹침은 검사가 잡아 준다.
+3. 새 PC 에서 이어받을 때: `git clone` → `npm install` → `vercel env pull .env.local`
+   (또는 `.env` 에 `GEMINI_API_KEY` 직접 기입) → `npm run dev`.
 
 > 이 PC(DESKTOP-JDF6C5D)에서는 다른 프로젝트가 5173/5174 를 이미 쓰고 있었다.
 > 먼저 뜬 쪽이 `::1` 에 바인드하면 `localhost` 요청이 통째로 그쪽으로 가서
@@ -60,9 +57,9 @@ pc: DESKTOP-JDF6C5D
 
 ## 🤔 결정 대기 (Decisions Needed)
 
-- **Gemini 키 선택** ⚠️ 지금 배포에는 키가 없다. `restoration-reader` 와 같은 키를 쓸지,
-  이 프로젝트 전용 키를 새로 발급할지 정해야 한다. 배포된 앱은 사용량이 늘 수 있으므로
-  전용 키 쪽이 낫다고 본다. (키를 다루는 일이라 사람이 결정할 몫으로 남겨 둠.)
+- **Gemini 키 사용량 관찰**: 키는 등록해 돌아간다. 다만 저장소가 public 이 되었으므로
+  URL 이 퍼지면 호출이 늘 수 있다. 할당량을 한 번 지켜보고, 필요하면 이 프로젝트 전용 키로
+  가르거나 채점 호출에 제한(rate limit)을 두는 것을 고려한다.
 - **진도 저장 위치**: 지금은 브라우저 `localStorage` 라 기기 간 공유가 안 된다.
   여러 기기에서 이어서 학습하려면 서버 DB가 필요하다.
 - **4군(확장 후보) 20개의 처지**: `break` `light` `set` `line` 등 옛 프로토타입 단어다.
