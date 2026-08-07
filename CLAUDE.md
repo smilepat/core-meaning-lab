@@ -29,7 +29,13 @@
 - 단어 80개 = 우선순위 1군 20 + 2군 20 + 3군 20 + 확장 후보 20. 이 중 30개에 `rank` 1~30
   (최우선 30). 목표는 Core Meaning 300 이고, 넓힐 때는 tier 파일에 이어 붙이면 된다.
 - 서버는 `createApp()`(server/app.ts)로 만든다. `listen` 은 `server/index.ts` 만 한다 —
-  테스트와 Vercel 서버리스(`api/[...path].ts`)가 같은 앱을 재사용하기 위해서다.
+  테스트와 Vercel 서버리스(`api/[...path].js`)가 같은 앱을 재사용하기 위해서다.
+- **배포 구조를 건드리기 전에 README 의 "여기서 세 번 넘어졌다"를 읽을 것.** `api/` 엔트리를
+  gitignore 하거나, 엔트리에서 `.ts` 를 직접 import 하거나, 라우트를 `/api/a/b` 로 두면
+  전부 배포에서만 깨진다. 로컬 테스트는 멀쩡히 통과한다.
+- 배포 후에는 `curl .../api/health` 로 실제로 찔러 본다. 빌드 성공 ≠ 함수 살아 있음.
+- 이 PC 에서 5173/5174 가 다른 프로젝트와 겹쳤다. 먼저 뜬 쪽이 `::1` 에 바인드하면
+  `localhost` 응답이 통째로 그쪽으로 간다 → `CLIENT_PORT=5183 PORT=5184 npm run dev`.
 - 채점 모델: `gemini-3.6-flash`, 구조화 출력(`responseSchema`) 으로 형식 강제.
 - Gemini 스키마의 `enum` 은 문자열 배열만 받는다 → `score` 를 `["0","1","2"]` 로 두고
   `normalize()` 에서 숫자로 되돌린다. 정수 타입으로 바꾸면 값 강제가 풀린다.

@@ -84,7 +84,7 @@ core-meaning-lab/
 │   ├─ grade.ts           Gemini 채점 (구조화 출력)
 │   └─ offline.ts         폴백 채점
 ├─ api/
-│   └─ [...path].ts       Vercel 서버리스 진입점 (같은 createApp 재사용)
+│   └─ [...path].js       Vercel 서버리스 진입점 — 커밋되는 한 줄 shim (아래 설명)
 ├─ shared/
 │   ├─ types.ts           client·server 공용 타입
 │   ├─ catalog.ts         tier 파일 합치기 + 무결성 검사 (정본 조립)
@@ -165,16 +165,42 @@ npm run check       # typecheck + test + build — 커밋 전에 이걸 돌린�
 
 ## 배포 (Vercel)
 
-정적 파일은 `dist/`, API 는 `api/[...path].ts` 서버리스 함수 하나가 받는다.
-둘 다 `server/app.ts` 의 같은 `createApp()` 을 쓰므로 로컬과 배포의 동작이 갈리지 않는다.
+<https://core-meaning-lab.vercel.app> — `main` 에 푸시하면 자동 배포된다.
+
+정적 파일은 `dist/`, API 는 서버리스 함수 하나가 받는다. 둘 다 `server/app.ts` 의 같은
+`createApp()` 을 쓰므로 로컬과 배포의 동작이 갈리지 않는다.
 
 ```bash
-vercel               # 프리뷰 배포
-vercel --prod        # 운영 배포
+vercel --prod        # 수동 배포가 필요할 때
 ```
 
 `GEMINI_API_KEY` 는 Vercel 환경변수에 넣는다 (Production·Preview·Development 모두 체크).
 안 넣어도 배포는 되고, 그때는 오프라인 폴백으로 동작한다.
+
+### 여기서 세 번 넘어졌다 — 건드리기 전에 읽을 것
+
+배포해 봐야만 드러난 제약들이고, 구조가 지금 모양인 이유가 전부 여기 있다.
+
+1. **`api/` 엔트리는 저장소에 커밋돼 있어야 한다.** Vercel 은 **소스**의 `api/` 를 보고
+   함수를 등록한다. 빌드 중에 만들어 내면 CLI 배포는 통해도 **git 푸시 배포에서는 함수가
+   통째로 없다** — 모든 `/api/*` 가 플랫폼 404 다. 그래서 `api/[...path].js` 는 커밋되는
+   한 줄 shim 이고, 알맹이만 `dist-api/handler.js` 로 생성된다(`vercel.json` 의
+   `functions.includeFiles` 가 함수 번들에 넣어 준다).
+2. **엔트리에서 `.ts` 를 직접 import 하면 안 된다.** Vercel 은 `api/*.ts` 를 트랜스파일만
+   하고 import 경로를 손대지 않는다. 이 저장소는 import 에 `.ts` 확장자를 쓰므로
+   (`allowImportingTsExtensions`) 런타임에 `ERR_MODULE_NOT_FOUND` 로 죽는다.
+   → `scripts/build-api.mjs` 가 esbuild 로 미리 한 파일로 묶는다.
+3. **catch-all 은 `/api` 아래 한 단계까지만 잡는다.** `/api/grade/context` 는 함수에 닿기도
+   전에 플랫폼 404 였다. 그래서 라우트가 `/api/grade-context` 로 평탄하다.
+   진단법: 그 경로에 POST 해 보고 **Express 404**(`Cannot POST …`)면 함수까지 간 것,
+   **Vercel 404**(`NOT_FOUND` + 요청 ID)면 라우팅이 못 간 것이다.
+
+배포 후에는 반드시 실제로 찔러 본다 — 빌드 성공은 함수가 산다는 뜻이 아니다:
+
+```bash
+curl https://core-meaning-lab.vercel.app/api/health
+# {"ok":true,"aiEnabled":false,"words":80}
+```
 
 ## 원본
 

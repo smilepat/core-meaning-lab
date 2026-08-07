@@ -1,7 +1,7 @@
 ---
 project: core-meaning-lab
 status: active
-progress: 70
+progress: 80
 updated: 2026-08-07
 pc: DESKTOP-JDF6C5D
 ---
@@ -11,8 +11,9 @@ pc: DESKTOP-JDF6C5D
 ## 🎯 한 줄 상태
 
 수능 우선순위 체계(1~3군 60개 + 확장 후보 20개 = **80단어**)를 넣고, 테스트 49개를 붙이고,
-**Vercel 프로덕션 배포까지 끝냈다** — <https://core-meaning-lab.vercel.app>.
-지금은 `GEMINI_API_KEY` 가 배포 환경에 없어서 오프라인 폴백으로 돈다. 키만 넣으면 AI 채점이 켜진다.
+브라우저로 5단계를 실제로 돌려 보고, **`main` 푸시 → 자동 배포까지 굳혔다** —
+<https://core-meaning-lab.vercel.app>.
+남은 것은 `GEMINI_API_KEY` 하나다. 지금은 없어서 오프라인 폴백(문자열 매칭)으로 돈다.
 
 ## 📊 진행 체크리스트
 
@@ -31,6 +32,9 @@ pc: DESKTOP-JDF6C5D
 - [x] **Vercel 배포** — 정적 dist/ + 서버리스 함수 1개, 엔드포인트 4종 실동작 확인
 - [x] **브라우저에서 5단계 흐름 실제 확인** — 헤드리스 크로미움으로 제시→의미확장→문맥복원→
       역방향→리포트 한 바퀴 + 티어 탭 전환 + 다크모드, 콘솔 에러 0건
+- [x] **PR #1 병합 → `main` 일원화**, 브랜치 정리
+- [x] **git 푸시 자동 배포 성립** — `api/` 엔트리를 커밋되는 shim 으로 바꿔 해결.
+      (전에는 CLI 배포만 통하고 git 배포는 함수가 통째로 없었다. README "세 번 넘어졌다" 참고)
 - [ ] 배포 환경에 `GEMINI_API_KEY` 설정 → AI 채점 켜기  ← 현재 위치 (키 선택은 아래 결정 대기)
 - [ ] 80 → 300 확장 (Core Meaning 300)
 
