@@ -1,4 +1,5 @@
 import type { Progress, Word } from "../../shared/types.ts";
+import { GROUPS, wordsInGroup } from "../lib/groups.ts";
 import { masteryColor, masteryPct } from "../lib/progress.ts";
 import { StageHead } from "./StageHead.tsx";
 
@@ -32,6 +33,26 @@ export function Report({ words, progress, onPick }: Props) {
           <div className="v">{attempts}</div>
           <div className="l">채점 횟수</div>
         </div>
+      </div>
+
+      {/* 그룹별 진도 — 어느 우선순위 구간이 비어 있는지가 다음에 뭘 할지 알려준다. */}
+      <div className="card cover">
+        {GROUPS.map((g) => {
+          const inGroup = wordsInGroup(words, g.key);
+          const done = inGroup.filter((w) => progress[w.id]).length;
+          const pct = inGroup.length === 0 ? 0 : Math.round((done / inGroup.length) * 100);
+          return (
+            <div key={String(g.key)} className="coverrow">
+              <span className="cl">{g.label}</span>
+              <span className="cbar">
+                <span className="cfill" style={{ width: `${pct}%` }} />
+              </span>
+              <span className="cn">
+                {done}/{inGroup.length}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
       {studied.length === 0 ? (

@@ -25,14 +25,17 @@ export async function fetchHealth(): Promise<{ aiEnabled: boolean }> {
   return response.json() as Promise<{ aiEnabled: boolean }>;
 }
 
+// 경로가 /api/grade-context 이지 /api/grade/context 가 아닌 이유:
+// Vercel 의 catch-all 함수(api/[...path])가 /api 아래 **한 단계**까지만 잡아 준다.
+// 두 단계 경로는 함수에 닿지도 못하고 플랫폼 404 로 끝난다. server/app.ts 참고.
 export function gradeContext(
   wordId: string,
   taskIndex: number,
   answer: string,
 ): Promise<GradeResult> {
-  return postJSON<GradeResult>("/api/grade/context", { wordId, taskIndex, answer });
+  return postJSON<GradeResult>("/api/grade-context", { wordId, taskIndex, answer });
 }
 
 export function gradeReverse(wordId: string, answer: string): Promise<GradeResult> {
-  return postJSON<GradeResult>("/api/grade/reverse", { wordId, answer });
+  return postJSON<GradeResult>("/api/grade-reverse", { wordId, answer });
 }

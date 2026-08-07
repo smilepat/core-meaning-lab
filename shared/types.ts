@@ -21,10 +21,49 @@ export interface ReverseTask {
   sample: string;
 }
 
+/**
+ * 학습 우선순위 그룹. 1~3 은 수능·평가원·EBS 빈도 기준으로 정한 정식 순서이고,
+ * 4 는 Core Meaning 300 으로 넓힐 때 먼저 검토할 예비 후보다.
+ */
+export type Tier = 1 | 2 | 3 | 4;
+
+export interface TierMeta {
+  tier: Tier;
+  name: string;
+  blurb: string;
+}
+
+export const TIERS: TierMeta[] = [
+  {
+    tier: 1,
+    name: "최우선 핵심",
+    blurb: "하나의 core 에서 가장 많은 뜻이 뻗어나가는 단어들. 여기부터 시작한다.",
+  },
+  {
+    tier: 2,
+    name: "매우 중요",
+    blurb: "수능 지문 전 영역에 고르게 깔리는 다의어.",
+  },
+  {
+    tier: 3,
+    name: "추상 지문 빈출",
+    blurb: "논설·과학·철학 지문에서 반복되는 라틴계 어휘. 어원이 곧 core 다.",
+  },
+  {
+    tier: 4,
+    name: "확장 후보",
+    blurb: "Core Meaning 300 으로 넓힐 때 먼저 편입할 구체어 다의어.",
+  },
+];
+
 export interface Word {
   id: string;
   word: string;
   pos: string;
+  /** 우선순위 그룹. */
+  tier: Tier;
+  /** 최우선 30개 안에서의 순위(1~30). 30위 밖이면 0. */
+  rank: number;
   core: { ko: string; image: string; exEn: string; exKo: string };
   senses: Sense[];
   context: ContextTask[];

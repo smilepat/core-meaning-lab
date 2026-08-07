@@ -12,18 +12,24 @@
 
 ## 이 저장소만의 규칙
 
-- **`shared/core30.ts` 는 손으로 고치지 않는다.** 프로토타입에서 자동 추출된 파일이다.
-  단어를 고치려면 `scripts/extract-core30.cjs` 를 고쳐 다시 생성하거나, 추출 원본을
-  졸업시킨 뒤 이 규칙을 지운다.
+- **단어 데이터는 `shared/data/tier{1,2,3,4}.ts` 를 손으로 고친다.** 여기가 정본이다.
+  (옛 `core30.ts` 는 프로토타입 HTML 에서 자동 추출된 파일이라 손대면 안 됐지만,
+  2026-08-07 에 졸업시키고 지웠다. 추출 스크립트도 함께 지웠다.)
+  `shared/catalog.ts` 가 네 파일을 합치면서 무결성까지 검사한다 — senseKey 가 실제 가지를
+  가리키는지, 순위가 겹치지 않는지 등. 깨지면 앱이 뜰 때 바로 예외로 죽는다.
 - **API 키는 서버에만 둔다.** `GEMINI_API_KEY` 를 클라이언트 코드나 `VITE_` 접두어
   환경변수로 옮기면 브라우저 번들에 그대로 실린다.
 - 채점 프롬프트에 **클라이언트가 보낸 문자열을 넣지 않는다.** 문장·정답은 서버가
-  `wordId` 로 `CORE30` 에서 찾는다 (`server/index.ts`).
-- 커밋 전 `npm run typecheck` 와 `npm run build` 를 돌린다.
+  `wordId` 로 카탈로그에서 찾는다 (`server/app.ts`).
+- 커밋 전 `npm run check` (typecheck + test + build) 를 돌린다.
 
 ## 빠른 사실
 
 - 스택: Vite + React + TypeScript (client) / Express + `@google/genai` (server).
+- 단어 80개 = 우선순위 1군 20 + 2군 20 + 3군 20 + 확장 후보 20. 이 중 30개에 `rank` 1~30
+  (최우선 30). 목표는 Core Meaning 300 이고, 넓힐 때는 tier 파일에 이어 붙이면 된다.
+- 서버는 `createApp()`(server/app.ts)로 만든다. `listen` 은 `server/index.ts` 만 한다 —
+  테스트와 Vercel 서버리스(`api/[...path].ts`)가 같은 앱을 재사용하기 위해서다.
 - 채점 모델: `gemini-3.6-flash`, 구조화 출력(`responseSchema`) 으로 형식 강제.
 - Gemini 스키마의 `enum` 은 문자열 배열만 받는다 → `score` 를 `["0","1","2"]` 로 두고
   `normalize()` 에서 숫자로 되돌린다. 정수 타입으로 바꾸면 값 강제가 풀린다.

@@ -1,59 +1,8 @@
-// 이 파일은 core-meaning-lab.html 프로토타입에서 자동 추출되었습니다.
-// 손으로 고치지 말고 scripts/extract-core30.cjs 를 다시 실행하세요.
-import type { Word } from "./types";
+// Tier 4 — 확장 후보. Core Meaning 300 으로 넓힐 때 먼저 편입할 구체어 다의어.
+// 초기 프로토타입 30개 중 우선순위 1~3군에 들지 않은 단어들이다.
+import type { Word } from "../types.ts";
 
-export const CORE30: Word[] = [
-  {
-    "id": "run",
-    "word": "run",
-    "pos": "동사",
-    "core": {
-      "ko": "달리다",
-      "image": "무언가가 한 방향으로 멈추지 않고 계속 빠르게 나아가는 그림",
-      "exEn": "The children ran to the beach.",
-      "exKo": "아이들이 해변으로 달려갔다."
-    },
-    "senses": [
-      {
-        "key": "operate",
-        "label": "운영하다",
-        "exEn": "My uncle runs a small café.",
-        "exKo": "삼촌은 작은 카페를 운영한다.",
-        "bridge": "가게·조직이 멈추지 않고 계속 굴러가게 하다"
-      },
-      {
-        "key": "function",
-        "label": "작동하다·돌아가다",
-        "exEn": "The engine is running.",
-        "exKo": "엔진이 돌아가고 있다.",
-        "bridge": "기계가 안에서 계속 움직이며 작동하다"
-      },
-      {
-        "key": "flow",
-        "label": "흐르다",
-        "exEn": "Tears ran down her face.",
-        "exKo": "눈물이 얼굴을 타고 흘렀다.",
-        "bridge": "액체가 한 방향으로 계속 이동하다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "She <b>runs</b> a language school in Seoul.",
-        "senseKey": "operate",
-        "gloss": "(학교를) 운영하다"
-      },
-      {
-        "sentence": "Don't leave the water <b>running</b>.",
-        "senseKey": "flow",
-        "gloss": "(물이) 계속 흐르다·틀어져 있다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "function",
-      "scene": "새로 산 노트북이 아주 매끄럽게 작동한다는 뜻으로",
-      "sample": "My new laptop runs very smoothly."
-    }
-  },
+export const TIER4: Word[] = [
   {
     "id": "head",
     "word": "head",
@@ -103,7 +52,9 @@ export const CORE30: Word[] = [
       "senseKey": "front",
       "scene": "네 이름이 목록 맨 위에 있다는 뜻으로",
       "sample": "Your name is at the head of the list."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "break",
@@ -154,7 +105,9 @@ export const CORE30: Word[] = [
       "senseKey": "broken",
       "scene": "내 휴대폰이 어제 고장 났다는 뜻으로",
       "sample": "My phone broke yesterday."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "light",
@@ -205,109 +158,9 @@ export const CORE30: Word[] = [
       "senseKey": "weight",
       "scene": "이 상자는 보기보다 가볍다는 뜻으로",
       "sample": "This box is lighter than it looks."
-    }
-  },
-  {
-    "id": "hold",
-    "word": "hold",
-    "pos": "동사",
-    "core": {
-      "ko": "잡다·쥐다",
-      "image": "손으로 무언가를 놓지 않고 붙들고 있는 그림",
-      "exEn": "Hold my hand.",
-      "exKo": "내 손을 잡아."
     },
-    "senses": [
-      {
-        "key": "contain",
-        "label": "담다·수용하다",
-        "exEn": "This bottle holds one liter.",
-        "exKo": "이 병은 1리터를 담는다.",
-        "bridge": "안에 붙들어 담고 있다"
-      },
-      {
-        "key": "event",
-        "label": "열다·개최하다",
-        "exEn": "They held a meeting.",
-        "exKo": "그들은 회의를 열었다.",
-        "bridge": "한자리에 붙들어 모으다"
-      },
-      {
-        "key": "keep",
-        "label": "유지하다",
-        "exEn": "Hold still!",
-        "exKo": "가만히 있어!",
-        "bridge": "상태를 놓지 않고 붙들어 두다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "The stadium <b>holds</b> 50,000 people.",
-        "senseKey": "contain",
-        "gloss": "(사람을) 수용하다·담다"
-      },
-      {
-        "sentence": "We will <b>hold</b> a party next week.",
-        "senseKey": "event",
-        "gloss": "(파티를) 열다·개최하다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "keep",
-      "scene": "잠시 그 자세를 유지하라는 뜻으로",
-      "sample": "Hold that position for a moment."
-    }
-  },
-  {
-    "id": "draw",
-    "word": "draw",
-    "pos": "동사",
-    "core": {
-      "ko": "끌다·당기다",
-      "image": "무언가를 자기 쪽으로 끌어당기는 그림(연필을 끌어 선을 만들면 '그리다')",
-      "exEn": "She drew a picture.",
-      "exKo": "그녀는 그림을 그렸다."
-    },
-    "senses": [
-      {
-        "key": "pull",
-        "label": "끌다·당기다",
-        "exEn": "The horse drew the cart.",
-        "exKo": "말이 수레를 끌었다.",
-        "bridge": "자기 쪽으로 당기는 기본 동작"
-      },
-      {
-        "key": "attract",
-        "label": "끌어당기다·유인하다",
-        "exEn": "The show drew a big crowd.",
-        "exKo": "그 공연은 많은 관중을 끌어모았다.",
-        "bridge": "사람의 관심을 끌어당기다"
-      },
-      {
-        "key": "takeout",
-        "label": "꺼내다·인출하다",
-        "exEn": "He drew money from the bank.",
-        "exKo": "그는 은행에서 돈을 인출했다.",
-        "bridge": "안에 있던 것을 끌어내다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "Bright colors <b>draw</b> children's attention.",
-        "senseKey": "attract",
-        "gloss": "(관심을) 끌다"
-      },
-      {
-        "sentence": "She <b>drew</b> a card from the deck.",
-        "senseKey": "takeout",
-        "gloss": "(카드를) 꺼내다·뽑다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "pull",
-      "scene": "그가 커튼을 쳤다(끌어당겼다)는 뜻으로",
-      "sample": "He drew the curtains."
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "get",
@@ -358,109 +211,9 @@ export const CORE30: Word[] = [
       "senseKey": "arrive",
       "scene": "공항에 몇 시에 도착하는지 묻는 뜻으로",
       "sample": "What time do we get to the airport?"
-    }
-  },
-  {
-    "id": "take",
-    "word": "take",
-    "pos": "동사",
-    "core": {
-      "ko": "가져가다·취하다",
-      "image": "무언가를 잡아 자기 쪽으로 데려가는 그림",
-      "exEn": "Take this pen.",
-      "exKo": "이 펜을 가져가."
     },
-    "senses": [
-      {
-        "key": "spend",
-        "label": "(시간이) 걸리다",
-        "exEn": "It takes an hour by bus.",
-        "exKo": "버스로 한 시간 걸린다.",
-        "bridge": "시간을 취해(써서) 쓰다"
-      },
-      {
-        "key": "ride",
-        "label": "타다",
-        "exEn": "Let's take the subway.",
-        "exKo": "지하철을 타자.",
-        "bridge": "그 교통수단을 골라 가져가다"
-      },
-      {
-        "key": "do",
-        "label": "하다·받다",
-        "exEn": "I take a shower every morning.",
-        "exKo": "나는 매일 아침 샤워를 한다.",
-        "bridge": "어떤 행동을 취하다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "This project will <b>take</b> three days.",
-        "senseKey": "spend",
-        "gloss": "(시간이) 걸리다"
-      },
-      {
-        "sentence": "She <b>takes</b> a bus to work.",
-        "senseKey": "ride",
-        "gloss": "(버스를) 타다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "do",
-      "scene": "회의 전에 잠깐 휴식을 취하자는 뜻으로",
-      "sample": "Let's take a short rest before the meeting."
-    }
-  },
-  {
-    "id": "turn",
-    "word": "turn",
-    "pos": "동사·명사",
-    "core": {
-      "ko": "돌다·돌리다",
-      "image": "방향이나 상태가 빙 도는 그림",
-      "exEn": "Turn left at the corner.",
-      "exKo": "모퉁이에서 왼쪽으로 돌아라."
-    },
-    "senses": [
-      {
-        "key": "become",
-        "label": "변하다·~이 되다",
-        "exEn": "The leaves turned red.",
-        "exKo": "잎이 빨갛게 변했다.",
-        "bridge": "상태가 다른 쪽으로 돌아 바뀌다"
-      },
-      {
-        "key": "order",
-        "label": "차례·순서",
-        "exEn": "It's your turn.",
-        "exKo": "네 차례야.",
-        "bridge": "돌아가며 하는 순서"
-      },
-      {
-        "key": "switch",
-        "label": "켜다·끄다",
-        "exEn": "Turn off the TV.",
-        "exKo": "TV를 꺼라.",
-        "bridge": "손잡이를 돌려 상태를 바꾸다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "Milk <b>turns</b> sour in hot weather.",
-        "senseKey": "become",
-        "gloss": "(상해서) ~하게 되다·변하다"
-      },
-      {
-        "sentence": "Please wait for your <b>turn</b>.",
-        "senseKey": "order",
-        "gloss": "차례·순서"
-      }
-    ],
-    "reverse": {
-      "senseKey": "switch",
-      "scene": "불 좀 켜 달라고 부탁하는 뜻으로",
-      "sample": "Could you turn on the light?"
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "fall",
@@ -511,7 +264,9 @@ export const CORE30: Word[] = [
       "senseKey": "decrease",
       "scene": "지난해 매출이 크게 줄었다는 뜻으로",
       "sample": "Sales fell sharply last year."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "cut",
@@ -562,58 +317,9 @@ export const CORE30: Word[] = [
       "senseKey": "reduce",
       "scene": "정부가 세금을 인하했다는 뜻으로",
       "sample": "The government cut taxes."
-    }
-  },
-  {
-    "id": "point",
-    "word": "point",
-    "pos": "명사·동사",
-    "core": {
-      "ko": "점·뾰족한 끝",
-      "image": "뾰족한 끝으로 한 곳을 콕 가리키는 그림",
-      "exEn": "Don't point at people.",
-      "exKo": "사람을 가리키지 마라."
     },
-    "senses": [
-      {
-        "key": "idea",
-        "label": "요점·핵심",
-        "exEn": "What's the point of this story?",
-        "exKo": "이 이야기의 요점이 뭐야?",
-        "bridge": "콕 집어 말하려는 한 점"
-      },
-      {
-        "key": "moment",
-        "label": "시점·지점",
-        "exEn": "At this point, we stopped.",
-        "exKo": "이 시점에서 우리는 멈췄다.",
-        "bridge": "시간·공간의 한 지점"
-      },
-      {
-        "key": "score",
-        "label": "점수",
-        "exEn": "They scored ten points.",
-        "exKo": "그들은 10점을 얻었다.",
-        "bridge": "세는 한 점 한 점"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "You missed the <b>point</b> of my question.",
-        "senseKey": "idea",
-        "gloss": "요점·핵심"
-      },
-      {
-        "sentence": "Our team is five <b>points</b> ahead.",
-        "senseKey": "score",
-        "gloss": "점수"
-      }
-    ],
-    "reverse": {
-      "senseKey": "moment",
-      "scene": "이 지점에서 길이 두 갈래로 나뉜다는 뜻으로",
-      "sample": "At this point, the road splits in two."
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "hand",
@@ -664,58 +370,9 @@ export const CORE30: Word[] = [
       "senseKey": "give",
       "scene": "여권을 건네 달라고 부탁하는 뜻으로",
       "sample": "Please hand me your passport."
-    }
-  },
-  {
-    "id": "face",
-    "word": "face",
-    "pos": "명사·동사",
-    "core": {
-      "ko": "얼굴",
-      "image": "앞쪽을 향하는, 표정과 정체가 드러나는 부분",
-      "exEn": "She has a kind face.",
-      "exKo": "그녀는 다정한 얼굴을 가졌다."
     },
-    "senses": [
-      {
-        "key": "surface",
-        "label": "면·표면",
-        "exEn": "the north face of the mountain",
-        "exKo": "산의 북쪽 면",
-        "bridge": "바깥으로 드러난 앞면"
-      },
-      {
-        "key": "confront",
-        "label": "맞서다·직면하다",
-        "exEn": "We must face the problem.",
-        "exKo": "우리는 그 문제에 맞서야 한다.",
-        "bridge": "얼굴을 돌리지 않고 마주 보다"
-      },
-      {
-        "key": "toward",
-        "label": "~을 향하다",
-        "exEn": "The house faces the sea.",
-        "exKo": "그 집은 바다를 향한다.",
-        "bridge": "얼굴을 그쪽으로 두다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "He had to <b>face</b> many difficulties.",
-        "senseKey": "confront",
-        "gloss": "(어려움에) 직면하다·맞서다"
-      },
-      {
-        "sentence": "My room <b>faces</b> the garden.",
-        "senseKey": "toward",
-        "gloss": "(정원을) 향하다·바라보다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "confront",
-      "scene": "우리는 큰 도전에 직면해 있다는 뜻으로",
-      "sample": "We are facing a big challenge."
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "key",
@@ -766,58 +423,9 @@ export const CORE30: Word[] = [
       "senseKey": "important",
       "scene": "그녀가 이 프로젝트의 핵심 인물이라는 뜻으로",
       "sample": "She is a key person in this project."
-    }
-  },
-  {
-    "id": "cover",
-    "word": "cover",
-    "pos": "동사·명사",
-    "core": {
-      "ko": "덮다",
-      "image": "무언가를 위에서 씌워 가리거나 감싸는 그림",
-      "exEn": "Cover the pot with a lid.",
-      "exKo": "냄비를 뚜껑으로 덮어라."
     },
-    "senses": [
-      {
-        "key": "include",
-        "label": "다루다·포함하다",
-        "exEn": "The book covers world history.",
-        "exKo": "그 책은 세계사를 다룬다.",
-        "bridge": "넓게 덮어 전부 포함하다"
-      },
-      {
-        "key": "report",
-        "label": "취재·보도하다",
-        "exEn": "She covered the election.",
-        "exKo": "그녀는 선거를 취재했다.",
-        "bridge": "사건 전체를 덮듯 취재하다"
-      },
-      {
-        "key": "enough",
-        "label": "충당하다",
-        "exEn": "This money will cover the trip.",
-        "exKo": "이 돈이면 여행비를 충당할 수 있다.",
-        "bridge": "필요한 만큼 덮어 채우다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "Today's class <b>covers</b> chapter three.",
-        "senseKey": "include",
-        "gloss": "(3장을) 다루다·포함하다"
-      },
-      {
-        "sentence": "The reporter <b>covered</b> the accident.",
-        "senseKey": "report",
-        "gloss": "취재·보도하다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "enough",
-      "scene": "이 예산으로 비용을 충당할 수 있다는 뜻으로",
-      "sample": "This budget will cover the costs."
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "catch",
@@ -868,7 +476,9 @@ export const CORE30: Word[] = [
       "senseKey": "notice",
       "scene": "아무도 그 오류를 알아채지 못했다는 뜻으로",
       "sample": "No one caught the error."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "drop",
@@ -919,7 +529,9 @@ export const CORE30: Word[] = [
       "senseKey": "quit",
       "scene": "그녀가 그 계획을 접었다(그만뒀다)는 뜻으로",
       "sample": "She dropped the plan."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "stand",
@@ -970,58 +582,9 @@ export const CORE30: Word[] = [
       "senseKey": "mean",
       "scene": "이 표시가 '위험'을 나타낸다는 뜻으로",
       "sample": "This sign stands for danger."
-    }
-  },
-  {
-    "id": "charge",
-    "word": "charge",
-    "pos": "동사·명사",
-    "core": {
-      "ko": "채워 싣다",
-      "image": "부담이나 힘을 실어 넣는 그림(그래서 '충전하다')",
-      "exEn": "Charge your phone.",
-      "exKo": "휴대폰을 충전해라."
     },
-    "senses": [
-      {
-        "key": "price",
-        "label": "청구하다·값을 매기다",
-        "exEn": "They charged me $10.",
-        "exKo": "그들은 나에게 10달러를 청구했다.",
-        "bridge": "값이라는 부담을 실어 매기다"
-      },
-      {
-        "key": "duty",
-        "label": "책임·담당",
-        "exEn": "She is in charge of the team.",
-        "exKo": "그녀가 팀을 담당한다.",
-        "bridge": "책임을 짊어져 싣다"
-      },
-      {
-        "key": "rush",
-        "label": "돌진하다",
-        "exEn": "The bull charged at him.",
-        "exKo": "황소가 그에게 돌진했다.",
-        "bridge": "힘을 가득 실어 밀고 나아가다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "The hotel <b>charges</b> $100 a night.",
-        "senseKey": "price",
-        "gloss": "(요금을) 청구하다"
-      },
-      {
-        "sentence": "Who is in <b>charge</b> here?",
-        "senseKey": "duty",
-        "gloss": "담당·책임"
-      }
-    ],
-    "reverse": {
-      "senseKey": "duty",
-      "scene": "그가 안전을 책임지고 있다는 뜻으로",
-      "sample": "He is in charge of safety."
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "sharp",
@@ -1072,7 +635,9 @@ export const CORE30: Word[] = [
       "senseKey": "clear",
       "scene": "새 화면이 아주 선명하다는 뜻으로",
       "sample": "The new screen is very sharp."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "deep",
@@ -1123,7 +688,9 @@ export const CORE30: Word[] = [
       "senseKey": "strong",
       "scene": "그가 음악에 깊은 관심을 가지고 있다는 뜻으로",
       "sample": "He has a deep interest in music."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "close",
@@ -1174,7 +741,9 @@ export const CORE30: Word[] = [
       "senseKey": "end",
       "scene": "박물관이 6시에 문을 닫는다는 뜻으로",
       "sample": "The museum closes at six."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "strike",
@@ -1225,7 +794,9 @@ export const CORE30: Word[] = [
       "senseKey": "strikework",
       "scene": "기사들이 더 나은 임금을 위해 파업 중이라는 뜻으로",
       "sample": "The drivers are on strike for better pay."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "set",
@@ -1276,7 +847,9 @@ export const CORE30: Word[] = [
       "senseKey": "decide",
       "scene": "선생님이 마감일을 정했다는 뜻으로",
       "sample": "The teacher set a deadline."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "play",
@@ -1327,58 +900,9 @@ export const CORE30: Word[] = [
       "senseKey": "instrument",
       "scene": "그가 기타를 아주 잘 친다는 뜻으로",
       "sample": "He plays the guitar very well."
-    }
-  },
-  {
-    "id": "carry",
-    "word": "carry",
-    "pos": "동사",
-    "core": {
-      "ko": "나르다·지니다",
-      "image": "무언가를 들고 다른 곳으로 옮기는 그림",
-      "exEn": "She carried a heavy bag.",
-      "exKo": "그녀는 무거운 가방을 들고 갔다."
     },
-    "senses": [
-      {
-        "key": "havewith",
-        "label": "지니다·가지고 다니다",
-        "exEn": "I always carry an umbrella.",
-        "exKo": "나는 항상 우산을 가지고 다닌다.",
-        "bridge": "몸에 지녀 옮기다"
-      },
-      {
-        "key": "stock",
-        "label": "취급하다·팔다",
-        "exEn": "This shop carries fresh fruit.",
-        "exKo": "이 가게는 신선한 과일을 취급한다.",
-        "bridge": "물건을 갖춰 나르듯 다루다"
-      },
-      {
-        "key": "spread",
-        "label": "옮기다·전달하다",
-        "exEn": "Mosquitoes carry disease.",
-        "exKo": "모기는 병을 옮긴다.",
-        "bridge": "무언가를 실어 다른 데로 옮기다"
-      }
-    ],
-    "context": [
-      {
-        "sentence": "Do you <b>carry</b> batteries in this store?",
-        "senseKey": "stock",
-        "gloss": "(물건을) 취급하다·팔다"
-      },
-      {
-        "sentence": "The wind <b>carried</b> the smell far.",
-        "senseKey": "spread",
-        "gloss": "(냄새를) 옮기다·실어 나르다"
-      }
-    ],
-    "reverse": {
-      "senseKey": "havewith",
-      "scene": "나는 어디를 가든 물병을 가지고 다닌다는 뜻으로",
-      "sample": "I carry a water bottle everywhere."
-    }
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "bright",
@@ -1429,7 +953,9 @@ export const CORE30: Word[] = [
       "senseKey": "vivid",
       "scene": "그가 선명한 파란색 셔츠를 입고 있다는 뜻으로",
       "sample": "He is wearing a bright blue shirt."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "spring",
@@ -1480,7 +1006,9 @@ export const CORE30: Word[] = [
       "senseKey": "coil",
       "scene": "이 침대는 용수철이 너무 딱딱하다는 뜻으로",
       "sample": "This bed's springs are too hard."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   },
   {
     "id": "line",
@@ -1531,6 +1059,8 @@ export const CORE30: Word[] = [
       "senseKey": "words",
       "scene": "그 배우가 자신의 대사를 완벽하게 외웠다는 뜻으로",
       "sample": "The actor memorized all his lines."
-    }
+    },
+    "tier": 4,
+    "rank": 0
   }
 ];

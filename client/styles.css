@@ -31,12 +31,22 @@
   .engine{font-size:11px;color:var(--ink-soft);display:flex;align-items:center;gap:5px}
   .dot{width:8px;height:8px;border-radius:50%;background:var(--ink-soft)}
   .dot.on{background:var(--accent)}
-  .chips{display:flex;gap:7px;overflow-x:auto;padding:11px 0 12px;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none}
+  /* 단어 그룹 탭 — 80단어를 한 줄에 늘어놓으면 못 쓰므로 먼저 그룹을 고른다 */
+  .groups{display:flex;gap:6px;overflow-x:auto;padding:9px 0 0;-ms-overflow-style:none;scrollbar-width:none}
+  .groups::-webkit-scrollbar{display:none}
+  .group{flex:0 0 auto;border:none;background:none;color:var(--ink-soft);font-family:inherit;
+    font-size:12.5px;font-weight:700;padding:4px 9px;border-radius:8px;cursor:pointer}
+  .group.active{background:var(--brand-soft);color:var(--brand)}
+
+  .chips{display:flex;gap:7px;overflow-x:auto;padding:9px 0 12px;scroll-snap-type:x proximity;-ms-overflow-style:none;scrollbar-width:none}
   .chips::-webkit-scrollbar{display:none}
   .chip{flex:0 0 auto;scroll-snap-align:start;border:1.5px solid var(--line);background:var(--surface);
     color:var(--ink);border-radius:999px;padding:7px 13px;font-size:14px;font-weight:600;cursor:pointer;position:relative}
   .chip.active{background:var(--brand);border-color:var(--brand);color:#fff}
   .chip .m{position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;border:2px solid var(--bg)}
+  .chip .rk{font-size:11px;font-weight:800;color:var(--ink-soft);margin-right:5px}
+  .chip.active .rk{color:rgba(255,255,255,.75)}
+  .groupnote{font-size:12px;color:var(--ink-soft);margin:0 2px 12px}
 
   main{padding-top:16px;min-height:60vh}
   .stagehead{display:flex;align-items:baseline;gap:8px;margin:2px 2px 12px}
@@ -106,6 +116,14 @@
   .stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;box-shadow:var(--shadow)}
   .stat .v{font-size:24px;font-weight:800;color:var(--brand)}
   .stat .l{font-size:11px;color:var(--ink-soft);margin-top:1px}
+  .cover{padding:13px 15px}
+  .coverrow{display:flex;align-items:center;gap:9px;font-size:12px}
+  .coverrow + .coverrow{margin-top:8px}
+  .coverrow .cl{flex:0 0 62px;font-weight:700;color:var(--ink-soft)}
+  .coverrow .cbar{flex:1;height:7px;border-radius:999px;background:var(--surface-2);overflow:hidden}
+  .coverrow .cfill{display:block;height:100%;background:var(--brand);border-radius:999px}
+  .coverrow .cn{flex:0 0 44px;text-align:right;font-weight:700;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px}
   .cell{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 8px;text-align:center;cursor:pointer}
   .ring{width:44px;height:44px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
