@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { CATALOG, TOP30, TOP_RANK, findProblems, wordsInTier } from "../shared/catalog.ts";
 import type { Word } from "../shared/types.ts";
+import { TIERS } from "../shared/types.ts";
 
 /** 검사 대상을 만들 때 쓰는 최소 단어. 필요한 부분만 덮어쓴다. */
 function stub(overrides: Partial<Word> = {}): Word {
@@ -30,14 +31,22 @@ describe("카탈로그 자체", () => {
     expect(findProblems(CATALOG)).toEqual([]);
   });
 
-  it("우선순위 4개 군을 모두 담고 있다", () => {
+  // 1~3군은 설계에서 확정한 정본이다. 확장은 4·5군에 쌓고 여기는 20개로 못 박는다 —
+  // 실수로 정본에 단어를 끼워 넣으면 학습 우선순위 자체가 흔들린다.
+  it("정본 1~3군은 각 20개로 고정되어 있다", () => {
     expect(wordsInTier(1)).toHaveLength(20);
     expect(wordsInTier(2)).toHaveLength(20);
     expect(wordsInTier(3)).toHaveLength(20);
+  });
+
+  it("확장 4·5군이 비어 있지 않다", () => {
     expect(wordsInTier(4).length).toBeGreaterThan(0);
-    expect(CATALOG).toHaveLength(
-      wordsInTier(1).length + wordsInTier(2).length + wordsInTier(3).length + wordsInTier(4).length,
-    );
+    expect(wordsInTier(5).length).toBeGreaterThan(0);
+  });
+
+  it("모든 단어가 다섯 군 중 하나에 속한다", () => {
+    const summed = TIERS.reduce((sum, t) => sum + wordsInTier(t.tier).length, 0);
+    expect(summed).toBe(CATALOG.length);
   });
 
   it("최우선 30개가 1~30 순위를 빠짐없이 채운다", () => {

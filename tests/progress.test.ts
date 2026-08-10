@@ -7,8 +7,9 @@ import {
   recordScore,
   stampSense,
 } from "../client/lib/progress.ts";
-import { wordsInGroup } from "../client/lib/groups.ts";
+import { GROUPS, wordsInGroup } from "../client/lib/groups.ts";
 import { CATALOG } from "../shared/catalog.ts";
+import { TIERS } from "../shared/types.ts";
 
 describe("숙련도 계산", () => {
   beforeEach(() => localStorage.clear());
@@ -76,7 +77,7 @@ describe("단어 그룹 나누기", () => {
   });
 
   it("각 티어 그룹은 해당 티어만 담는다", () => {
-    for (const tier of [1, 2, 3, 4] as const) {
+    for (const { tier } of TIERS) {
       const words = wordsInGroup(CATALOG, tier);
       expect(words.length).toBeGreaterThan(0);
       expect(words.every((w) => w.tier === tier)).toBe(true);
@@ -84,10 +85,12 @@ describe("단어 그룹 나누기", () => {
   });
 
   it("티어 그룹을 모두 합치면 카탈로그 전체가 된다", () => {
-    const total = [1, 2, 3, 4].reduce(
-      (sum, t) => sum + wordsInGroup(CATALOG, t as 1 | 2 | 3 | 4).length,
-      0,
-    );
+    const total = TIERS.reduce((sum, t) => sum + wordsInGroup(CATALOG, t.tier).length, 0);
     expect(total).toBe(CATALOG.length);
+  });
+
+  it("그룹 탭은 '최우선 30' + 티어 수만큼 있다", () => {
+    expect(GROUPS).toHaveLength(TIERS.length + 1);
+    expect(GROUPS[0]?.key).toBe("top");
   });
 });

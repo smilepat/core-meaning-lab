@@ -10,10 +10,10 @@ pc: DESKTOP-JDF6C5D
 
 ## 🎯 한 줄 상태
 
-**돌아간다.** 수능 우선순위 80단어 · 테스트 49개 · `main` 푸시 자동 배포 ·
-**실제 Gemini 채점 켜짐** — <https://core-meaning-lab.vercel.app>.
+**돌아간다.** 수능 우선순위 **120단어** · 테스트 52개 · `main` 푸시 자동 배포 ·
+실제 Gemini 채점 켜짐 — <https://core-meaning-lab.vercel.app>.
 저장소는 2026-08-07 에 **public** 으로 전환했다 (전환 전 히스토리 시크릿 스캔 통과).
-남은 것은 기능 추가가 아니라 **내용을 300개로 넓히는 일**이다.
+남은 것은 기능이 아니라 **내용이다 — Core Meaning 300 까지 180개.** 지금 40% 지점.
 
 ## 📊 진행 체크리스트
 
@@ -39,14 +39,19 @@ pc: DESKTOP-JDF6C5D
       Preview 는 CLI 가 프롬프트를 요구해 실패 → REST API 로 우회 (전역 규칙대로).
       로컬·프로덕션에서 정답/오답 각각 확인, 클라이언트 번들에 키 없음도 확인.
 - [x] **저장소 public 전환** — 전환 전 히스토리 전체 시크릿 스캔(.env 커밋 이력·키 패턴) 통과
-- [ ] 80 → 300 확장 (Core Meaning 300)  ← 현재 위치
+- [x] **80 → 120 확장** — 4군 확장·구체어 +20(`last` `matter` `count` `issue` `stick` …),
+      5군 확장·추상어 +20(`attribute` `impose` `expose` `subject` `sustain` …).
+      1~3군 정본 60개는 손대지 않았고, 테스트가 각 20개로 못 박는다.
+- [ ] **120 → 300 확장** (남은 180개)  ← 현재 위치
 
 ## ⏭️ 다음에 할 일 (Next Actions)
 
 1. **실제 학습자에게 한 번 태워 본다.** 특히 3군(추상 라틴계)의 어원 설명이 통하는지.
    `bridge` 문장이 이 앱의 알맹이라, 여기서 막히면 기능이 아니라 **데이터를 고쳐야 한다**.
-2. **단어 확장 (80 → 300).** 3군이 수능 지문에서 효용이 가장 크므로 여기부터 늘리는 게 낫다.
-   `shared/data/tier3.ts` 에 이어 붙이고 `rank` 만 다시 매기면 된다 — 겹침은 검사가 잡아 준다.
+2. **단어 확장 (120 → 300).** 4·5군 파일에 이어 붙인다. 1~3군은 정본이라 늘리지 않는다.
+   다음 묶음 후보: `tain` 계열(contain·retain·obtain·maintain은 이미 있음),
+   `duce` 계열(induce·deduce·introduce), `press` 계열(compress·suppress·impress),
+   그리고 일상 다의어 `run`-급 남은 것들(`case` `ground` `field` `hold`-류 파생).
 3. 새 PC 에서 이어받을 때: `git clone` → `npm install` → `vercel env pull .env.local`
    (또는 `.env` 에 `GEMINI_API_KEY` 직접 기입) → `npm run dev`.
 

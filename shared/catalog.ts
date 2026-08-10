@@ -6,6 +6,8 @@ import { TIER1 } from "./data/tier1.ts";
 import { TIER2 } from "./data/tier2.ts";
 import { TIER3 } from "./data/tier3.ts";
 import { TIER4 } from "./data/tier4.ts";
+import { TIER4B } from "./data/tier4b.ts";
+import { TIER5 } from "./data/tier5.ts";
 
 /** 최우선 30개의 순위 상한. rank 는 1~30 또는 0(순위 밖)이다. */
 export const TOP_RANK = 30;
@@ -56,7 +58,9 @@ export function findProblems(words: Word[]): CatalogProblem[] {
   return problems;
 }
 
-const ALL: Word[] = [...TIER1, ...TIER2, ...TIER3, ...TIER4];
+// tier4 는 파일이 둘이다 — tier4.ts 는 프로토타입 유산, tier4b.ts 는 확장 저작분.
+// 학습자에게는 같은 4군이고, 파일만 저작 시점으로 갈라 두었다.
+const ALL: Word[] = [...TIER1, ...TIER2, ...TIER3, ...TIER4, ...TIER4B, ...TIER5];
 
 const problems = findProblems(ALL);
 if (problems.length > 0) {

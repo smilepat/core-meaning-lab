@@ -22,10 +22,12 @@ export interface ReverseTask {
 }
 
 /**
- * 학습 우선순위 그룹. 1~3 은 수능·평가원·EBS 빈도 기준으로 정한 정식 순서이고,
- * 4 는 Core Meaning 300 으로 넓힐 때 먼저 검토할 예비 후보다.
+ * 학습 우선순위 그룹.
+ * 1~3 은 수능·평가원·EBS 빈도 기준으로 확정한 **정본**이라 개수를 늘리지 않는다
+ * (각 20개). Core Meaning 300 으로 넓힌 분량은 4·5 에 쌓는다 —
+ * 4 는 일상 고빈도 구체어, 5 는 추상 라틴계다.
  */
-export type Tier = 1 | 2 | 3 | 4;
+export type Tier = 1 | 2 | 3 | 4 | 5;
 
 export interface TierMeta {
   tier: Tier;
@@ -51,8 +53,13 @@ export const TIERS: TierMeta[] = [
   },
   {
     tier: 4,
-    name: "확장 후보",
-    blurb: "Core Meaning 300 으로 넓힐 때 먼저 편입할 구체어 다의어.",
+    name: "확장 · 구체어",
+    blurb: "뜻이 쉬워 보여 오히려 틀리는 자리. last 를 '마지막'으로만 알면 문장이 어긋난다.",
+  },
+  {
+    tier: 5,
+    name: "확장 · 추상어",
+    blurb: "접두사만 갈아 끼운 한 식구가 많다. pose(놓다)·tain(붙들다)·tribute(나눠 주다) 계열.",
   },
 ];
 

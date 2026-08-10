@@ -1,8 +1,11 @@
-import type { Word } from "../../shared/types.ts";
+import type { Tier, Word } from "../../shared/types.ts";
 import { TIERS } from "../../shared/types.ts";
 
-/** 단어 그룹 선택값. "top" 은 티어를 가로지르는 최우선 30개다. */
-export type GroupKey = "top" | 1 | 2 | 3 | 4;
+/**
+ * 단어 그룹 선택값. "top" 은 티어를 가로지르는 최우선 30개다.
+ * Tier 에서 파생시킨다 — 군을 늘릴 때 여기를 같이 고치는 걸 잊으면 타입만 어긋난다.
+ */
+export type GroupKey = "top" | Tier;
 
 export const GROUPS: { key: GroupKey; label: string }[] = [
   { key: "top", label: "최우선 30" },
