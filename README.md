@@ -22,8 +22,8 @@
 
 STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 피드백과 모범 답안이 함께 나온다.
 
-현재 데이터: **120개 단어 · 360개 확장 의미 · 240개 문맥 과제 · 120개 역방향 과제.**
-목표는 **Core Meaning 300** 이고, 지금은 그 40% 지점이다.
+현재 데이터: **160개 단어 · 480개 확장 의미 · 320개 문맥 과제 · 160개 역방향 과제.**
+목표는 **Core Meaning 300** 이고, 지금은 그 53% 지점이다.
 
 ## 단어 우선순위
 
@@ -36,8 +36,8 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | 1군 최우선 핵심 | 20 | 하나의 core 에서 가장 많은 뜻이 뻗어나간다. `run` `address` `hold` `draw` `take` … |
 | 2군 매우 중요 | 20 | 지문 전 영역에 고르게 깔린다. `account` `claim` `deal` `figure` `regard` … |
 | 3군 추상 지문 빈출 | 20 | 논설·과학 지문의 라틴계 어휘. 어원이 곧 core 다. `derive` `assume` `suggest` … |
-| 4군 확장 · 구체어 | 40 | 뜻이 쉬워 보여 오히려 틀리는 자리. `last` `matter` `count` `issue` `stick` … |
-| 5군 확장 · 추상어 | 20 | 접두사만 갈아 끼운 한 식구. `attribute` `constitute` `impose` `expose` … |
+| 4군 확장 · 구체어 | 60 | 뜻이 쉬워 보여 오히려 틀리는 자리. `last` `ground` `yield` `bound` `tell` … |
+| 5군 확장 · 추상어 | 40 | 접두사만 갈아 끼운 한 식구. `attribute` `impose` `persist` `retain` … |
 
 **1~3군은 설계에서 확정한 정본이라 개수를 늘리지 않는다** (각 20개, 테스트가 못 박고 있다).
 300 으로 넓히는 분량은 4·5군에 쌓는다.
@@ -52,10 +52,22 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 
 | 뿌리 | 단어 |
 |---|---|
+| `sistere` 서다 | con**sist**(함께 서다) · per**sist**(끝까지) · re**sist**(맞서) · in**sist**(위에) |
+| `tenere` 붙들다 | con**tain**(함께) · re**tain**(뒤로) · ob**tain**(~향해) · main**tain**(손으로) |
 | `ponere` 놓다 | com**pose**(함께 놓다) · ex**pose**(밖에 놓다) · im**pose**(위에 놓다) |
 | `jacere` 던지다 | sub**ject**(아래에 던지다) · ob**ject**(앞에 던지다) · pro**ject**(앞으로 던지다) |
+| `ducere` 이끌다 | in**duce**(안으로) · de**duce**(아래로) · intro**duce**(안쪽으로) · con**duct**(함께) |
+| `servare` 지키다 | pre**serve**(앞서) · con**serve**(축내지 않고) · re**serve**(뒤로) |
+| `premere` 누르다 | im**press**(안으로 눌러 찍다) · sup**press**(아래로 누르다) · ex**press**(밖으로) |
 | `tribuere` 나눠 주다 | at**tribute**(~쪽으로) · con**tribute**(함께) |
 | `volvere` 말다 | in**volve**(안으로 말다) · e**volve**(밖으로 풀리다) |
+| `vertere` 돌리다 | con**vert**(통째로 돌리다) · re**verse**(뒤로 돌리다) |
+
+한 뿌리를 잡으면 넷이 한꺼번에 열린다. 앱에서 5군 탭을 열고 `consist` → `persist` →
+`resist` → `insist` 를 차례로 보면 core 만 접두사만큼 달라지는 것이 보인다.
+
+⚠️ 닮았다고 다 한 식구는 아니다. `preserve` `conserve` `reserve` `observe` 의 뿌리는
+**servare(지키다)** 인데 `serve` 는 **servire(섬기다)** 로 다른 낱말이다. 묶어서 설명하면 틀린다.
 
 ## 실행
 
@@ -104,8 +116,10 @@ core-meaning-lab/
 │   └─ data/              단어 데이터 (손으로 고치는 정본)
 │       ├─ tier1~3.ts       정본 60개 — 개수를 늘리지 않는다
 │       ├─ tier4.ts         확장·구체어 (프로토타입 유산 20)
-│       ├─ tier4b.ts        확장·구체어 (저작분 20)
-│       └─ tier5.ts         확장·추상어 20
+│       ├─ tier4b/4c.ts     확장·구체어 (저작분 20 + 20)
+│       └─ tier5/5b.ts      확장·추상어 (20 + 20)
+│                           파일 이름 = 군 + 저작 차수. 넓힐 때 새 파일을 만들어
+│                           catalog.ts 의 ALL 에 이어 붙인다.
 └─ tests/                 vitest — 카탈로그 · 폴백 채점 · API 계약 · 진도
 ```
 
@@ -166,7 +180,7 @@ config: {
 
 ### 300개로 넓히기
 
-목표는 Core Meaning 300, 현재 120. 넓힐 때는 **4·5군 파일에 이어 붙인다** —
+목표는 Core Meaning 300, 현재 160. 넓힐 때는 **4·5군 파일에 이어 붙인다** —
 1~3군은 정본이라 개수를 고정해 두었고 테스트가 그걸 못 박고 있다.
 군을 새로 늘릴 때는 `shared/types.ts` 의 `Tier` 와 `TIERS` 만 고치면 화면 탭·리포트·
 그룹 검사가 전부 따라온다 (`GroupKey` 도 `Tier` 에서 파생된다).

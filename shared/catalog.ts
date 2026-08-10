@@ -7,7 +7,9 @@ import { TIER2 } from "./data/tier2.ts";
 import { TIER3 } from "./data/tier3.ts";
 import { TIER4 } from "./data/tier4.ts";
 import { TIER4B } from "./data/tier4b.ts";
+import { TIER4C } from "./data/tier4c.ts";
 import { TIER5 } from "./data/tier5.ts";
+import { TIER5B } from "./data/tier5b.ts";
 
 /** 최우선 30개의 순위 상한. rank 는 1~30 또는 0(순위 밖)이다. */
 export const TOP_RANK = 30;
@@ -58,9 +60,19 @@ export function findProblems(words: Word[]): CatalogProblem[] {
   return problems;
 }
 
-// tier4 는 파일이 둘이다 — tier4.ts 는 프로토타입 유산, tier4b.ts 는 확장 저작분.
-// 학습자에게는 같은 4군이고, 파일만 저작 시점으로 갈라 두었다.
-const ALL: Word[] = [...TIER1, ...TIER2, ...TIER3, ...TIER4, ...TIER4B, ...TIER5];
+// 파일은 "군 + 저작 차수"로 나뉜다 — tier4.ts 는 프로토타입 유산, tier4b/4c 는 확장 저작분,
+// tier5/5b 도 마찬가지다. 학습자에게는 파일 구분이 보이지 않고 군만 보인다.
+// 300개까지 넓힐 때도 새 파일을 만들어 여기에 이어 붙이면 된다.
+const ALL: Word[] = [
+  ...TIER1,
+  ...TIER2,
+  ...TIER3,
+  ...TIER4,
+  ...TIER4B,
+  ...TIER4C,
+  ...TIER5,
+  ...TIER5B,
+];
 
 const problems = findProblems(ALL);
 if (problems.length > 0) {
