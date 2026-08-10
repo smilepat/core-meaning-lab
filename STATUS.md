@@ -1,7 +1,7 @@
 ---
 project: core-meaning-lab
 status: active
-progress: 90
+progress: 95
 updated: 2026-08-07
 pc: DESKTOP-JDF6C5D
 ---
@@ -10,10 +10,10 @@ pc: DESKTOP-JDF6C5D
 
 ## 🎯 한 줄 상태
 
-**돌아간다.** 수능 우선순위 **240단어** · 테스트 52개 · `main` 푸시 자동 배포 ·
-실제 Gemini 채점 켜짐 — <https://core-meaning-lab.vercel.app>.
-저장소는 2026-08-07 에 **public** 으로 전환했다 (전환 전 히스토리 시크릿 스캔 통과).
-남은 것은 기능이 아니라 **내용이다 — Core Meaning 300 까지 60개.** 지금 80% 지점.
+🎉 **Core Meaning 300 완주.** 300단어 · 900 의미가지 · 600 문맥과제 · 300 역방향과제,
+테스트 53개, `main` 푸시 자동 배포, 실제 Gemini 채점 —
+<https://core-meaning-lab.vercel.app>. 저장소는 **public**.
+목표했던 데이터는 다 채웠다. 이제 남은 것은 **실제 학습자에게 태워 보는 일**이다.
 
 ## 📊 진행 체크리스트
 
@@ -53,24 +53,25 @@ pc: DESKTOP-JDF6C5D
       동사로 나오는" 자리(`book` `stress` `second` `spare` `mine` …).
       `succeed` 가 이 방식의 값을 가장 잘 보여 준다 — core "뒤따라 가다" 하나에서
       성공하다·계승하다가 함께 나온다.
-- [ ] **240 → 300 확장** (남은 60개)  ← 현재 위치
+- [x] **240 → 300 확장 · 완주** — 5군 +32를 여덟 어근 × 네 형제로
+      (trahere · scribere · portare · currere · venire · stare · fundere · gradi),
+      4군 +28은 "추상 지문에서 갑자기 다른 얼굴로 나오는 쉬운 단어"
+      (`interest` `nature` `party` `means` `stake` …).
+      `circumstance` = 둘레에 서 있는 것들 — 번역어 "상황"보다 정확하다.
+- [x] 테스트에 **역방향 과제 300건 전수 검사** 추가. 문맥 600건 검사는 순차 호출로
+      5초 타임아웃에 걸려 병렬로 바꿨다 (실패가 아니라 느림이었다).
+- [ ] **실제 학습자 검증**  ← 현재 위치
 
 ## ⏭️ 다음에 할 일 (Next Actions)
 
 1. **실제 학습자에게 한 번 태워 본다.** 특히 3군(추상 라틴계)의 어원 설명이 통하는지.
    `bridge` 문장이 이 앱의 알맹이라, 여기서 막히면 기능이 아니라 **데이터를 고쳐야 한다**.
-2. **단어 확장 (240 → 300, 마지막 60개).** 4·5군 파일에 이어 붙인다. 1~3군은 늘리지 않는다.
-   **어근 가족을 네 형제씩 대칭으로 짜는 방식이 가장 잘 먹힌다** — 접두사가 뜻을 어떻게
-   비트는지가 나란히 놓여야 보인다. 남은 묶음 후보:
-   - `gradi`(걷다): progress · regress · aggressive · gradual
-   - `fundere`(붓다): confuse · refuse · diffuse · profuse
-   - `trahere`(끌다): attract · contract · extract · distract
-   - `portare`(나르다): export · import · report · support(있음) · transport
-   - `scribere`(쓰다): describe · prescribe · subscribe · inscribe
-   - `flectere`(구부리다): reflect(있음) · deflect · flexible
-   - 일상 다의어: `bill` `bear`-구동사, `stand`/`hold`/`put` 구동사, `light`-파생,
-     `charge`-파생, `run`-구동사(run into/out of/over)
-3. 새 PC 에서 이어받을 때: `git clone` → `npm install` → `vercel env pull .env.local`
+2. **데이터는 다 채웠으니 이제 쓰임새를 본다.** 더 넓힐 여지는 있지만(구동사 계열
+   `run into`/`stand for`/`put off`, `flectere`·`ligare`·`tangere` 가족) 300 을 채운 지금은
+   **개수보다 검증이 남았다.** 넓힐 때는 4·5군 파일에 이어 붙이고 1~3군은 늘리지 않는다.
+3. **rate limit 검토.** 저장소가 public 이라 URL 이 퍼지면 `/api/grade-*` 가 그대로 열려 있다.
+   Gemini 할당량이 깎이는 통로다 — 사용량을 지켜보고 필요하면 제한을 건다.
+4. 새 PC 에서 이어받을 때: `git clone` → `npm install` → `vercel env pull .env.local`
    (또는 `.env` 에 `GEMINI_API_KEY` 직접 기입) → `npm run dev`.
 
 > 이 PC(DESKTOP-JDF6C5D)에서는 다른 프로젝트가 5173/5174 를 이미 쓰고 있었다.

@@ -99,14 +99,44 @@ describe("POST /api/grade-reverse 입력 검증", () => {
 });
 
 describe("모든 단어가 실제로 채점 가능하다", () => {
-  it("카탈로그의 모든 문맥 과제가 400 없이 채점된다", async () => {
-    for (const word of CATALOG) {
-      for (let i = 0; i < word.context.length; i += 1) {
-        const res = await request(app)
-          .post("/api/grade-context")
-          .send({ wordId: word.id, taskIndex: i, answer: "테스트 답안" });
-        expect(res.status, `${word.id}[${i}]`).toBe(200);
-      }
-    }
-  });
+  // 300단어 × 문맥 과제 2개 = 600건. 순차로 돌리면 기본 타임아웃(5초)을 넘긴다.
+  // 병렬로 던지고 넉넉한 타임아웃을 준다 — 오프라인 폴백이라 네트워크는 타지 않는다.
+  it(
+    "카탈로그의 모든 문맥 과제가 400 없이 채점된다",
+    async () => {
+      const tasks = CATALOG.flatMap((word) =>
+        word.context.map((_, i) => ({ id: word.id, index: i })),
+      );
+
+      const results = await Promise.all(
+        tasks.map(async (t) => {
+          const res = await request(app)
+            .post("/api/grade-context")
+            .send({ wordId: t.id, taskIndex: t.index, answer: "테스트 답안" });
+          return { ...t, status: res.status };
+        }),
+      );
+
+      const bad = results.filter((r) => r.status !== 200);
+      expect(bad.map((r) => `${r.id}[${r.index}]=${r.status}`)).toEqual([]);
+      expect(results).toHaveLength(tasks.length);
+    },
+    60_000,
+  );
+
+  it(
+    "카탈로그의 모든 역방향 과제가 400 없이 채점된다",
+    async () => {
+      const results = await Promise.all(
+        CATALOG.map(async (word) => {
+          const res = await request(app)
+            .post("/api/grade-reverse")
+            .send({ wordId: word.id, answer: "This is a test sentence." });
+          return { id: word.id, status: res.status };
+        }),
+      );
+      expect(results.filter((r) => r.status !== 200).map((r) => r.id)).toEqual([]);
+    },
+    60_000,
+  );
 });

@@ -22,8 +22,8 @@
 
 STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 피드백과 모범 답안이 함께 나온다.
 
-현재 데이터: **240개 단어 · 720개 확장 의미 · 480개 문맥 과제 · 240개 역방향 과제.**
-목표는 **Core Meaning 300** 이고, 지금은 그 80% 지점이다.
+현재 데이터: **300개 단어 · 900개 확장 의미 · 600개 문맥 과제 · 300개 역방향 과제.**
+**Core Meaning 300 완주** (2026-08-07).
 
 ## 단어 우선순위
 
@@ -36,8 +36,8 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | 1군 최우선 핵심 | 20 | 하나의 core 에서 가장 많은 뜻이 뻗어나간다. `run` `address` `hold` `draw` `take` … |
 | 2군 매우 중요 | 20 | 지문 전 영역에 고르게 깔린다. `account` `claim` `deal` `figure` `regard` … |
 | 3군 추상 지문 빈출 | 20 | 논설·과학 지문의 라틴계 어휘. 어원이 곧 core 다. `derive` `assume` `suggest` … |
-| 4군 확장 · 구체어 | 100 | 뜻이 쉬워 보여 오히려 틀리는 자리. `ground` `novel` `book` `stress` `weigh` … |
-| 5군 확장 · 추상어 | 80 | 접두사만 갈아 끼운 한 식구. `persist` `suspect` `succeed` `imply` `evoke` … |
+| 4군 확장 · 구체어 | 128 | 뜻이 쉬워 보여 오히려 틀리는 자리. `ground` `novel` `interest` `nature` `stake` … |
+| 5군 확장 · 추상어 | 112 | 접두사만 갈아 끼운 한 식구. `persist` `succeed` `circumstance` `occur` `imply` … |
 
 **1~3군은 설계에서 확정한 정본이라 개수를 늘리지 않는다** (각 20개, 테스트가 못 박고 있다).
 300 으로 넓히는 분량은 4·5군에 쌓는다.
@@ -60,6 +60,14 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | `mittere` 보내다 | ad**mit**(안으로) · com**mit**(맡겨) · per**mit**(통과시켜) · sub**mit**(아래로) |
 | `tendere` 뻗다 | at**tend**(~쪽으로) · in**tend**(겨눠) · pre**tend**(앞으로) · con**tend**(맞대고) |
 | `cedere` 가다 | pro**ceed**(앞으로) · ex**ceed**(선 밖으로) · pre**cede**(앞서) · suc**ceed**(뒤따라) |
+| `stare` 서다 | con**stant**(굳게) · di**stance**(떨어져) · sub**stance**(아래서 받쳐) · circum**stance**(둘레에) |
+| `trahere` 끌다 | at**tract**(~쪽으로) · con**tract**(함께 조여) · ex**tract**(밖으로) · di**stract**(딴 데로) |
+| `scribere` 쓰다 | de**scribe**(따라) · pre**scribe**(미리) · sub**scribe**(아래에) · in**scribe**(새겨) |
+| `portare` 나르다 | ex**port**(밖으로) · im**port**(안으로) · re**port**(되가져와) · trans**port**(건너) |
+| `currere` 달리다 | oc**cur**(마주 달려와) · re**cur**(되돌아) · con**cur**(함께) · in**cur**(달려 들어가) |
+| `venire` 오다 | pre**vent**(앞질러) · inter**vene**(사이로) · con**vention**(함께) · **event**(밖으로) |
+| `fundere` 붓다 | con**fuse**(뒤섞어) · re**fuse**(되돌려) · dif**fuse**(흩어) · in**fuse**(안으로) |
+| `gradi` 걷다 | pro**gress**(앞으로) · re**gress**(뒤로) · ag**gressive**(~쪽으로) · **gradual**(한 걸음씩) |
 | `ponere` 놓다 | com**pose**(함께) · ex**pose**(밖에) · im**pose**(위에) · dis**pose**(흩어) · op**pose**(앞을 막아) · pro**pose**(앞으로) · sup**pose**(밑에) |
 | `struere` 쌓다 | con**struct**(함께) · in**struct**(안에) · ob**struct**(앞을 막아) · de**stroy**(헐어) |
 | `plicare` 접다 | im**ply**(안으로) · com**ply**(맞춰) · re**ply**(되접어) · em**ploy**(끌어 넣어) |
@@ -86,6 +94,10 @@ in·spect  안을 들여다보다      su·spect  아래에서 슬쩍 올려다�
 `succeed` 가 이 방식의 값을 가장 잘 보여 준다. "성공하다"와 "계승하다"가 왜 한 단어인지는
 따로 외울 일이 아니다 — core 가 **뒤따라 가다**이기 때문이다.
 앞사람 뒤를 이으면 계승이고, 끝까지 따라가 닿으면 성공이다.
+
+`circumstance` 도 마찬가지다. "상황"이라는 번역어보다 **둘레에 서 있는 것들**이 훨씬 정확하다 —
+나를 빙 둘러싸고 서 있는 조건들. 같은 `stare`(서다) 뿌리에서 `substance` 는 **아래에 서서 받치는 것**,
+`distance` 는 **떨어져 서 있음**, `constant` 는 **굳게 함께 서 있다** 가 된다.
 
 ⚠️ 닮았다고 다 한 식구는 아니다. `preserve` `conserve` `reserve` `observe` 의 뿌리는
 **servare(지키다)** 인데 `serve` 는 **servire(섬기다)** 로 다른 낱말이다. 묶어서 설명하면 틀린다.
@@ -137,8 +149,8 @@ core-meaning-lab/
 │   └─ data/              단어 데이터 (손으로 고치는 정본)
 │       ├─ tier1~3.ts       정본 60개 — 개수를 늘리지 않는다
 │       ├─ tier4.ts         확장·구체어 (프로토타입 유산 20)
-│       ├─ tier4b~4e.ts     확장·구체어 (저작분 20 × 4)
-│       └─ tier5~5d.ts      확장·추상어 (20 × 4)
+│       ├─ tier4b~4f.ts     확장·구체어 (저작분 5차)
+│       └─ tier5~5e.ts      확장·추상어 (5차)
 │                           파일 이름 = 군 + 저작 차수. 넓힐 때 새 파일을 만들어
 │                           catalog.ts 의 ALL 에 이어 붙인다.
 └─ tests/                 vitest — 카탈로그 · 폴백 채점 · API 계약 · 진도
@@ -199,9 +211,9 @@ config: {
 가리키는지, `<b>` 강조가 있는지, 순위가 겹치지 않는지. 어긋나면 **앱이 뜰 때 바로
 예외로 죽는다** — 조용히 잘못된 채로 돌지 않는다. 같은 검사를 `npm test` 도 돈다.
 
-### 300개로 넓히기
+### 더 넓히기
 
-목표는 Core Meaning 300, 현재 240. 넓힐 때는 **4·5군 파일에 이어 붙인다** —
+목표였던 Core Meaning 300 은 채웠다. 더 넓힐 때는 **4·5군 파일에 이어 붙인다** —
 1~3군은 정본이라 개수를 고정해 두었고 테스트가 그걸 못 박고 있다.
 군을 새로 늘릴 때는 `shared/types.ts` 의 `Tier` 와 `TIERS` 만 고치면 화면 탭·리포트·
 그룹 검사가 전부 따라온다 (`GroupKey` 도 `Tier` 에서 파생된다).
