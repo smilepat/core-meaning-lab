@@ -1,6 +1,25 @@
 import type { Progress, Score, WordProgress } from "../../shared/types.ts";
 
 const STORE_KEY = "cml_progress_v1";
+const GUIDE_KEY = "cml_guide_seen_v1";
+
+/** 안내 화면을 이미 본 적이 있는지. 처음 온 사람에게만 자동으로 띄우기 위한 것이다. */
+export function hasSeenGuide(): boolean {
+  try {
+    return localStorage.getItem(GUIDE_KEY) === "1";
+  } catch {
+    // 저장이 막힌 브라우저에서는 매번 띄우기보다 안 띄우는 쪽이 덜 성가시다.
+    return true;
+  }
+}
+
+export function markGuideSeen(): void {
+  try {
+    localStorage.setItem(GUIDE_KEY, "1");
+  } catch {
+    // 저장 실패는 무시한다. 헤더의 '안내' 버튼으로 언제든 다시 열 수 있다.
+  }
+}
 
 function emptyRecord(): WordProgress {
   return { ctxBest: 0, ctxAttempts: 0, revBest: 0, revAttempts: 0, senses: {}, last: "" };

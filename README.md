@@ -10,6 +10,11 @@
 단어는 아무렇게나 고른 게 아니라 **수능·평가원·EBS 에서 쓸모가 큰 순서**로 줄을 세웠다.
 자세한 것은 아래 [단어 우선순위](#단어-우선순위) 참고.
 
+앱을 처음 열면 **안내 화면**이 먼저 뜬다 — 목적·원리·학습 체계·사용법. 한 번 닫으면
+다시 뜨지 않고, 헤더의 **안내** 버튼으로 언제든 다시 열 수 있다
+(`client/components/Guide.tsx`). 화면의 숫자는 카탈로그에서 직접 뽑으므로 단어를 늘려도
+같이 갱신된다.
+
 ## 5단계 학습 흐름
 
 | 단계 | 이름 | 하는 일 |
@@ -132,7 +137,7 @@ npm start          # Express가 API + dist/ 를 함께 서빙 (기본 5174)
 core-meaning-lab/
 ├─ client/                Vite + React + TypeScript
 │   ├─ App.tsx            단어 선택 · 단계 전환 · 진도 상태
-│   ├─ components/        단계별 화면 5종 + 결과 카드
+│   ├─ components/        단계별 화면 5종 + 결과 카드 + Guide(안내 화면)
 │   ├─ lib/api.ts         /api 호출 래퍼
 │   ├─ lib/progress.ts    localStorage 진도 기록
 │   └─ styles.css         프로토타입 CSS 그대로 (다크모드 대응)

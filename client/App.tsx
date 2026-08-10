@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import type { GradeResult, Progress, Stage, Word } from "../shared/types.ts";
 import { fetchHealth, fetchWords } from "./lib/api.ts";
-import { loadProgress, recordScore, stampSense } from "./lib/progress.ts";
+import { hasSeenGuide, loadProgress, markGuideSeen, recordScore, stampSense } from "./lib/progress.ts";
 import { ContextStage } from "./components/ContextStage.tsx";
+import { Guide } from "./components/Guide.tsx";
 import { Present } from "./components/Present.tsx";
 import { Report } from "./components/Report.tsx";
 import { ReverseStage } from "./components/ReverseStage.tsx";
@@ -27,6 +28,8 @@ export default function App() {
   const [group, setGroup] = useState<GroupKey>("top");
   const [stage, setStage] = useState<Stage>("present");
   const [progress, setProgress] = useState<Progress>(() => loadProgress());
+  // 처음 온 사람에게는 안내를 먼저 띄운다. 한 번 닫으면 다시 뜨지 않는다.
+  const [showGuide, setShowGuide] = useState(() => !hasSeenGuide());
 
   useEffect(() => {
     fetchWords()
@@ -59,17 +62,32 @@ export default function App() {
   const engineLabel =
     aiEnabled === null ? "채점 엔진 확인 중…" : aiEnabled ? "AI 채점 준비됨" : "오프라인 채점";
 
+  function closeGuide() {
+    markGuideSeen();
+    setShowGuide(false);
+  }
+
   return (
     <>
+      {showGuide && <Guide words={words} onClose={closeGuide} />}
       <header>
         <div className="wrap">
           <div className="brand">
             <h1>
               Core Meaning <span>Lab</span>
             </h1>
-            <div className="engine">
-              <span className={`dot${aiEnabled ? " on" : ""}`} />
-              <span>{engineLabel}</span>
+            <div className="brand-right">
+              <div className="engine">
+                <span className={`dot${aiEnabled ? " on" : ""}`} />
+                <span>{engineLabel}</span>
+              </div>
+              <button
+                className="guide-open"
+                onClick={() => setShowGuide(true)}
+                aria-label="앱 소개와 사용법 보기"
+              >
+                안내
+              </button>
             </div>
           </div>
           <WordPicker
