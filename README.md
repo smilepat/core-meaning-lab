@@ -22,8 +22,8 @@
 
 STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 피드백과 모범 답안이 함께 나온다.
 
-현재 데이터: **200개 단어 · 600개 확장 의미 · 400개 문맥 과제 · 200개 역방향 과제.**
-목표는 **Core Meaning 300** 이고, 지금은 그 67% 지점이다.
+현재 데이터: **240개 단어 · 720개 확장 의미 · 480개 문맥 과제 · 240개 역방향 과제.**
+목표는 **Core Meaning 300** 이고, 지금은 그 80% 지점이다.
 
 ## 단어 우선순위
 
@@ -36,8 +36,8 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | 1군 최우선 핵심 | 20 | 하나의 core 에서 가장 많은 뜻이 뻗어나간다. `run` `address` `hold` `draw` `take` … |
 | 2군 매우 중요 | 20 | 지문 전 영역에 고르게 깔린다. `account` `claim` `deal` `figure` `regard` … |
 | 3군 추상 지문 빈출 | 20 | 논설·과학 지문의 라틴계 어휘. 어원이 곧 core 다. `derive` `assume` `suggest` … |
-| 4군 확장 · 구체어 | 80 | 뜻이 쉬워 보여 오히려 틀리는 자리. `ground` `yield` `novel` `patient` `just` … |
-| 5군 확장 · 추상어 | 60 | 접두사만 갈아 끼운 한 식구. `persist` `perceive` `suspect` `submit` `intend` … |
+| 4군 확장 · 구체어 | 100 | 뜻이 쉬워 보여 오히려 틀리는 자리. `ground` `novel` `book` `stress` `weigh` … |
+| 5군 확장 · 추상어 | 80 | 접두사만 갈아 끼운 한 식구. `persist` `suspect` `succeed` `imply` `evoke` … |
 
 **1~3군은 설계에서 확정한 정본이라 개수를 늘리지 않는다** (각 20개, 테스트가 못 박고 있다).
 300 으로 넓히는 분량은 4·5군에 쌓는다.
@@ -59,7 +59,11 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | `spectare` 보다 | a**spect**(~쪽에서) · re**spect**(다시) · in**spect**(안을) · su**spect**(아래에서) |
 | `mittere` 보내다 | ad**mit**(안으로) · com**mit**(맡겨) · per**mit**(통과시켜) · sub**mit**(아래로) |
 | `tendere` 뻗다 | at**tend**(~쪽으로) · in**tend**(겨눠) · pre**tend**(앞으로) · con**tend**(맞대고) |
-| `ponere` 놓다 | com**pose**(함께) · ex**pose**(밖에) · im**pose**(위에) |
+| `cedere` 가다 | pro**ceed**(앞으로) · ex**ceed**(선 밖으로) · pre**cede**(앞서) · suc**ceed**(뒤따라) |
+| `ponere` 놓다 | com**pose**(함께) · ex**pose**(밖에) · im**pose**(위에) · dis**pose**(흩어) · op**pose**(앞을 막아) · pro**pose**(앞으로) · sup**pose**(밑에) |
+| `struere` 쌓다 | con**struct**(함께) · in**struct**(안에) · ob**struct**(앞을 막아) · de**stroy**(헐어) |
+| `plicare` 접다 | im**ply**(안으로) · com**ply**(맞춰) · re**ply**(되접어) · em**ploy**(끌어 넣어) |
+| `vocare` 부르다 | e**voke**(밖으로) · pro**voke**(앞으로) · in**voke**(안으로) · ad**vocate**(곁으로) |
 | `jacere` 던지다 | sub**ject**(아래에) · ob**ject**(앞에) · pro**ject**(앞으로) |
 | `ducere` 이끌다 | in**duce**(안으로) · de**duce**(아래로) · intro**duce**(안쪽으로) · con**duct**(함께) |
 | `servare` 지키다 | pre**serve**(앞서) · con**serve**(축내지 않고) · re**serve**(뒤로) |
@@ -78,6 +82,10 @@ re·sist   맞서 버티고 서다     in·sist   위에 딱 버티고 서다
 a·spect   ~쪽에서 본 모습      re·spect  다시 돌아보다
 in·spect  안을 들여다보다      su·spect  아래에서 슬쩍 올려다보다
 ```
+
+`succeed` 가 이 방식의 값을 가장 잘 보여 준다. "성공하다"와 "계승하다"가 왜 한 단어인지는
+따로 외울 일이 아니다 — core 가 **뒤따라 가다**이기 때문이다.
+앞사람 뒤를 이으면 계승이고, 끝까지 따라가 닿으면 성공이다.
 
 ⚠️ 닮았다고 다 한 식구는 아니다. `preserve` `conserve` `reserve` `observe` 의 뿌리는
 **servare(지키다)** 인데 `serve` 는 **servire(섬기다)** 로 다른 낱말이다. 묶어서 설명하면 틀린다.
@@ -129,8 +137,8 @@ core-meaning-lab/
 │   └─ data/              단어 데이터 (손으로 고치는 정본)
 │       ├─ tier1~3.ts       정본 60개 — 개수를 늘리지 않는다
 │       ├─ tier4.ts         확장·구체어 (프로토타입 유산 20)
-│       ├─ tier4b~4d.ts     확장·구체어 (저작분 20 × 3)
-│       └─ tier5~5c.ts      확장·추상어 (20 × 3)
+│       ├─ tier4b~4e.ts     확장·구체어 (저작분 20 × 4)
+│       └─ tier5~5d.ts      확장·추상어 (20 × 4)
 │                           파일 이름 = 군 + 저작 차수. 넓힐 때 새 파일을 만들어
 │                           catalog.ts 의 ALL 에 이어 붙인다.
 └─ tests/                 vitest — 카탈로그 · 폴백 채점 · API 계약 · 진도
@@ -159,15 +167,15 @@ config: {
 
 ### 두 가지 안전 장치
 
-1. **API 키는 서버에만 있다.** 브라우저는 `/api/grade/*` 만 호출하므로 키가 번들에
-   실리지 않는다.
+1. **API 키는 서버에만 있다.** 브라우저는 `/api/grade-context` 와 `/api/grade-reverse`
+   만 호출하므로 키가 번들에 실리지 않는다.
 2. **프롬프트에 클라이언트 문자열을 넣지 않는다.** 클라이언트는 `wordId` 와 `taskIndex`
    만 보내고, 채점 대상 문장·정답은 서버가 카탈로그에서 찾는다. 임의의 텍스트를
    프롬프트에 밀어 넣을 수 없다.
 
 ## 단어 데이터 고치기
 
-`shared/data/tier1.ts` ~ `tier4.ts` 가 정본이다. **직접 고치면 된다.**
+`shared/data/` 아래 tier 파일들이 정본이다. **직접 고치면 된다.**
 (2026-08-07 이전에는 프로토타입 HTML 에서 자동 추출한 `core30.ts` 가 정본이라
 직접 편집이 금지였다. 지금은 추출기와 함께 졸업했다.)
 
@@ -187,13 +195,13 @@ config: {
 `bridge` 가 이 앱의 핵심이다 — core 와 그 뜻을 잇는 한 문장. 이게 부실하면
 그냥 뜻 나열이 되어 버린다. `context[].sentence` 의 대상 단어는 `<b>` 로 감싼다.
 
-`shared/catalog.ts` 가 네 파일을 합치면서 검사한다: `senseKey` 가 실제 가지를
+`shared/catalog.ts` 가 tier 파일 전부를 합치면서 검사한다: `senseKey` 가 실제 가지를
 가리키는지, `<b>` 강조가 있는지, 순위가 겹치지 않는지. 어긋나면 **앱이 뜰 때 바로
 예외로 죽는다** — 조용히 잘못된 채로 돌지 않는다. 같은 검사를 `npm test` 도 돈다.
 
 ### 300개로 넓히기
 
-목표는 Core Meaning 300, 현재 200. 넓힐 때는 **4·5군 파일에 이어 붙인다** —
+목표는 Core Meaning 300, 현재 240. 넓힐 때는 **4·5군 파일에 이어 붙인다** —
 1~3군은 정본이라 개수를 고정해 두었고 테스트가 그걸 못 박고 있다.
 군을 새로 늘릴 때는 `shared/types.ts` 의 `Tier` 와 `TIERS` 만 고치면 화면 탭·리포트·
 그룹 검사가 전부 따라온다 (`GroupKey` 도 `Tier` 에서 파생된다).

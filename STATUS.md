@@ -10,10 +10,10 @@ pc: DESKTOP-JDF6C5D
 
 ## 🎯 한 줄 상태
 
-**돌아간다.** 수능 우선순위 **200단어** · 테스트 52개 · `main` 푸시 자동 배포 ·
+**돌아간다.** 수능 우선순위 **240단어** · 테스트 52개 · `main` 푸시 자동 배포 ·
 실제 Gemini 채점 켜짐 — <https://core-meaning-lab.vercel.app>.
 저장소는 2026-08-07 에 **public** 으로 전환했다 (전환 전 히스토리 시크릿 스캔 통과).
-남은 것은 기능이 아니라 **내용이다 — Core Meaning 300 까지 100개.** 지금 67% 지점.
+남은 것은 기능이 아니라 **내용이다 — Core Meaning 300 까지 60개.** 지금 80% 지점.
 
 ## 📊 진행 체크리스트
 
@@ -48,22 +48,28 @@ pc: DESKTOP-JDF6C5D
 - [x] **160 → 200 확장** — 5군 +20을 **다섯 어근 × 네 형제**로 대칭 저작
       (ferre · capere · spectare · mittere · tendere), 4군 +20은 "쉬운 뜻이 먼저 튀어나와
       지문을 망치는" 부류(`novel` `article` `patient` `just` `plain` …).
-- [ ] **200 → 300 확장** (남은 100개)  ← 현재 위치
+- [x] **200 → 240 확장** — 5군 +20을 또 다섯 어근 × 네 형제로
+      (ponere · cedere · struere · plicare · vocare), 4군 +20은 "명사로만 외운 단어가
+      동사로 나오는" 자리(`book` `stress` `second` `spare` `mine` …).
+      `succeed` 가 이 방식의 값을 가장 잘 보여 준다 — core "뒤따라 가다" 하나에서
+      성공하다·계승하다가 함께 나온다.
+- [ ] **240 → 300 확장** (남은 60개)  ← 현재 위치
 
 ## ⏭️ 다음에 할 일 (Next Actions)
 
 1. **실제 학습자에게 한 번 태워 본다.** 특히 3군(추상 라틴계)의 어원 설명이 통하는지.
    `bridge` 문장이 이 앱의 알맹이라, 여기서 막히면 기능이 아니라 **데이터를 고쳐야 한다**.
-2. **단어 확장 (200 → 300).** 4·5군 파일에 이어 붙인다. 1~3군은 정본이라 늘리지 않는다.
+2. **단어 확장 (240 → 300, 마지막 60개).** 4·5군 파일에 이어 붙인다. 1~3군은 늘리지 않는다.
    **어근 가족을 네 형제씩 대칭으로 짜는 방식이 가장 잘 먹힌다** — 접두사가 뜻을 어떻게
-   비트는지가 나란히 놓여야 보인다. 다음 묶음 후보:
-   - `ponere`(놓다) 보강: dispose · oppose · propose · suppose
-   - `ducere`(이끌다) 보강: reduce(있음) · produce(있음) · seduce · abduct
-   - `struere`(쌓다): construct · instruct · destruct · obstruct
-   - `gradi`(걷다): progress · regress · aggressive · degree(있음)
-   - `plicare`(접다): imply · comply · reply · complicate · explicit
-   - `vocare`(부르다): evoke · provoke · advocate · vocation
-   - 일상 다의어: `book` `bill` `board` `bear`-구동사, `stand`/`hold` 구동사, `figure`-파생
+   비트는지가 나란히 놓여야 보인다. 남은 묶음 후보:
+   - `gradi`(걷다): progress · regress · aggressive · gradual
+   - `fundere`(붓다): confuse · refuse · diffuse · profuse
+   - `trahere`(끌다): attract · contract · extract · distract
+   - `portare`(나르다): export · import · report · support(있음) · transport
+   - `scribere`(쓰다): describe · prescribe · subscribe · inscribe
+   - `flectere`(구부리다): reflect(있음) · deflect · flexible
+   - 일상 다의어: `bill` `bear`-구동사, `stand`/`hold`/`put` 구동사, `light`-파생,
+     `charge`-파생, `run`-구동사(run into/out of/over)
 3. 새 PC 에서 이어받을 때: `git clone` → `npm install` → `vercel env pull .env.local`
    (또는 `.env` 에 `GEMINI_API_KEY` 직접 기입) → `npm run dev`.
 
