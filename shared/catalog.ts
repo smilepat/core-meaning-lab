@@ -16,6 +16,8 @@ import { TIER5B } from "./data/tier5b.ts";
 import { TIER5C } from "./data/tier5c.ts";
 import { TIER5D } from "./data/tier5d.ts";
 import { TIER5E } from "./data/tier5e.ts";
+import type { RootFamily } from "./data/roots.ts";
+import { ROOT_FAMILIES } from "./data/roots.ts";
 
 /** 최우선 30개의 순위 상한. rank 는 1~30 또는 0(순위 밖)이다. */
 export const TOP_RANK = 30;
@@ -98,7 +100,33 @@ const ALL: Word[] = [
   ...TIER5E,
 ];
 
-const problems = findProblems(ALL);
+/** 어근 가족이 실재하지 않는 단어를 가리키거나, 한 단어를 두 가족에 넣지 않았는지 본다. */
+export function findRootProblems(words: Word[], families: RootFamily[]): CatalogProblem[] {
+  const problems: CatalogProblem[] = [];
+  const ids = new Set(words.map((w) => w.id));
+  const owner = new Map<string, string>();
+
+  for (const f of families) {
+    if (f.members.length < 2) {
+      problems.push({ wordId: f.latin, message: "식구가 하나뿐인 어근은 묶을 값이 없습니다." });
+    }
+    for (const id of f.members) {
+      if (!ids.has(id)) {
+        problems.push({ wordId: f.latin, message: `"${id}" 는 카탈로그에 없는 단어입니다.` });
+        continue;
+      }
+      const prev = owner.get(id);
+      if (prev) {
+        problems.push({ wordId: id, message: `어근 ${prev} 와 ${f.latin} 양쪽에 들어 있습니다.` });
+      } else {
+        owner.set(id, f.latin);
+      }
+    }
+  }
+  return problems;
+}
+
+const problems = [...findProblems(ALL), ...findRootProblems(ALL, ROOT_FAMILIES)];
 if (problems.length > 0) {
   const lines = problems.map((p) => `  - ${p.wordId}: ${p.message}`).join("\n");
   throw new Error(`단어 카탈로그가 올바르지 않습니다:\n${lines}`);
@@ -115,3 +143,11 @@ export const BY_ID = new Map(CATALOG.map((w) => [w.id, w]));
 export function wordsInTier(tier: Tier): Word[] {
   return CATALOG.filter((w) => w.tier === tier);
 }
+
+export { ROOT_FAMILIES };
+export type { RootFamily };
+
+/** 단어 id → 그 단어가 속한 어근 가족. 없으면 undefined. */
+export const ROOT_OF = new Map<string, RootFamily>(
+  ROOT_FAMILIES.flatMap((f) => f.members.map((id) => [id, f] as const)),
+);

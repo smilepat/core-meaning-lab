@@ -1,40 +1,14 @@
 import { useEffect, useMemo } from "react";
 import type { Word } from "../../shared/types.ts";
 import { TIERS } from "../../shared/types.ts";
+import { ROOT_FAMILIES } from "../../shared/catalog.ts";
 
-/** 어근 가족 예시. 이 앱이 5군을 왜 이렇게 짰는지 한눈에 보여 주는 자리다. */
-const ROOT_FAMILIES = [
-  {
-    root: "sistere",
-    ko: "서다",
-    kids: [
-      ["consist", "함께 서 있다"],
-      ["persist", "끝까지 서 있다"],
-      ["resist", "맞서 버티고 서다"],
-      ["insist", "위에 딱 버티고 서다"],
-    ],
-  },
-  {
-    root: "spectare",
-    ko: "보다",
-    kids: [
-      ["aspect", "~쪽에서 본 모습"],
-      ["respect", "다시 돌아보다"],
-      ["inspect", "안을 들여다보다"],
-      ["suspect", "아래에서 슬쩍 올려다보다"],
-    ],
-  },
-  {
-    root: "stare",
-    ko: "서다",
-    kids: [
-      ["constant", "굳게 함께 서 있다"],
-      ["distance", "떨어져 서 있음"],
-      ["substance", "아래에 서서 받치는 것"],
-      ["circumstance", "둘레에 서 있는 것들"],
-    ],
-  },
-];
+/**
+ * 안내에 보여 줄 어근 가족 셋. 어느 가족을 보여 줄지만 여기서 고르고,
+ * 식구와 뜻은 카탈로그에서 끌어온다 — 예전에는 여기 하드코딩돼 있어서
+ * 데이터를 고쳐도 안내 화면은 옛말을 하고 있었다.
+ */
+const SHOWCASE_ROOTS = ["sistere", "spectare", "stare"];
 
 const STEPS = [
   {
@@ -89,6 +63,22 @@ export function Guide({ words, onClose }: Props) {
       count: words.filter((w) => w.tier === t.tier).length,
     }));
     return { total: words.length, senses, tasks, byTier };
+  }, [words]);
+
+  // 보여 줄 가족의 식구와 뜻을 카탈로그에서 그때그때 뽑는다.
+  const showcase = useMemo(() => {
+    const byId = new Map(words.map((w) => [w.id, w]));
+    return SHOWCASE_ROOTS.map((latin) => ROOT_FAMILIES.find((f) => f.latin === latin))
+      .filter((f): f is (typeof ROOT_FAMILIES)[number] => Boolean(f))
+      .map((f) => ({
+        root: f.latin,
+        ko: f.ko,
+        kids: f.members
+          .map((id) => byId.get(id))
+          .filter((w): w is Word => Boolean(w))
+          .slice(0, 4)
+          .map((w) => [w.word, w.core.ko] as const),
+      }));
   }, [words]);
 
   // 열려 있는 동안 뒤 배경이 따라 스크롤되지 않게 막는다.
@@ -162,7 +152,7 @@ export function Guide({ words, onClose }: Props) {
               논설·과학 지문을 막는 추상 어휘는 대부분 라틴어 어근에 접두사를 붙인 것입니다.
               <b> 뿌리 하나를 잡으면 네 단어가 한꺼번에 열립니다.</b>
             </p>
-            {ROOT_FAMILIES.map((f) => (
+            {showcase.map((f) => (
               <div key={f.root} className="groot">
                 <div className="groot-h">
                   <code>{f.root}</code> {f.ko}
@@ -278,6 +268,17 @@ export function Guide({ words, onClose }: Props) {
                 오프라인일 때도 학습 흐름은 전부 돌아갑니다.
               </li>
               <li>같은 문제를 다시 풀어도 됩니다. 점수는 최고점만 남습니다.</li>
+              <li>
+                아는 단어를 찾을 때는 <b>맨 위 검색창</b>을 쓰세요. 철자든 뜻이든 찾아 줍니다.
+              </li>
+              <li>
+                <b>5군은 어근 가족</b>, <b>4군은 알파벳 30개 단계</b>로 나뉘어 있습니다.
+                군 탭 아래 두 번째 줄에서 고르세요.
+              </li>
+              <li>
+                뭘 할지 모르겠으면 <b>리포트의 "다음 단어"</b>를 누르세요. 안 한 것 먼저,
+                다 했으면 약한 것부터 골라 줍니다.
+              </li>
             </ul>
           </section>
 

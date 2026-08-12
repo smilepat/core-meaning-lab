@@ -77,6 +77,8 @@ export interface Word {
   reverse: ReverseTask;
 }
 
+export type { RootFamily } from "./data/roots.ts";
+
 export const STAGES = ["present", "map", "context", "reverse", "report"] as const;
 export type Stage = (typeof STAGES)[number];
 

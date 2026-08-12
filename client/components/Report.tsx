@@ -1,5 +1,5 @@
 import type { Progress, Word } from "../../shared/types.ts";
-import { GROUPS, wordsInGroup } from "../lib/groups.ts";
+import { GROUPS, pickNext, wordsInGroup } from "../lib/groups.ts";
 import { masteryColor, masteryPct } from "../lib/progress.ts";
 import { StageHead } from "./StageHead.tsx";
 
@@ -17,9 +17,22 @@ export function Report({ words, progress, onPick }: Props) {
     return sum + (r ? r.ctxAttempts + r.revAttempts : 0);
   }, 0);
 
+  const next = pickNext(words, progress);
+
   return (
     <>
       <StageHead n="STEP 5" title="리포트" sub={`전체 ${words.length}단어`} />
+
+      {/* 300개 앞에서 "이제 뭘 하지"가 남지 않도록, 다음 한 단어를 딱 집어 준다. */}
+      {next && (
+        <button className="nextcard" onClick={() => onPick(next.word.id)}>
+          <span className="nextlabel">다음 단어</span>
+          <span className="nextword">{next.word.word}</span>
+          <span className="nextcore">{next.word.core.ko}</span>
+          <span className="nextwhy">{next.reason} →</span>
+        </button>
+      )}
+
       <div className="stats">
         <div className="stat">
           <div className="v">{studied.length}</div>
