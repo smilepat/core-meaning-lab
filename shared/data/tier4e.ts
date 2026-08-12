@@ -46,9 +46,9 @@ export const TIER4E: Word[] = [
         gloss: "예약되다",
       },
       {
-        sentence: "The hall was fully <b>booked</b> for the season.",
-        senseKey: "reserve",
-        gloss: "예약이 차다",
+        sentence: "He was <b>booked</b> for dangerous driving last month.",
+        senseKey: "record",
+        gloss: "입건되다·장부에 오르다",
       },
     ],
     reverse: {

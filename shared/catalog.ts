@@ -53,6 +53,18 @@ export function findProblems(words: Word[]): CatalogProblem[] {
     });
     if (!senseKeys.has(w.reverse.senseKey)) flag(`reverse.senseKey "${w.reverse.senseKey}" 가 없습니다.`);
 
+    // ② 의미 확장 지도에 띄워 놓고 ③④ 에서 한 번도 안 묻는 뜻이 있으면 체계가 끊긴다.
+    // 형식이 아니라 학습 설계를 지키는 검사다 — 예전에 19개 단어가 여기서 새고 있었다.
+    const ctxKeys = w.context.map((t) => t.senseKey);
+    if (new Set(ctxKeys).size < ctxKeys.length) {
+      flag(`문맥 과제가 같은 뜻을 두 번 묻습니다 (${ctxKeys.join(", ")}).`);
+    }
+    const asked = new Set([...ctxKeys, w.reverse.senseKey]);
+    const never = w.senses.filter((s) => !asked.has(s.key));
+    if (never.length >= 2) {
+      flag(`확장 의미 ${never.length}개가 과제에 한 번도 안 나옵니다 (${never.map((s) => s.label).join(", ")}).`);
+    }
+
     if (w.rank < 0 || w.rank > TOP_RANK || !Number.isInteger(w.rank)) {
       flag(`rank ${w.rank} 는 0 또는 1~${TOP_RANK} 의 정수여야 합니다.`);
     }

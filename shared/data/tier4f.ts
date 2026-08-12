@@ -46,9 +46,9 @@ export const TIER4F: Word[] = [
         gloss: "이해관계",
       },
       {
-        sentence: "It is in everyone's <b>interest</b> to keep the system open.",
-        senseKey: "stake",
-        gloss: "이익·이해",
+        sentence: "The loan carries an <b>interest</b> rate of five percent.",
+        senseKey: "money",
+        gloss: "이자",
       },
     ],
     reverse: {
@@ -152,9 +152,9 @@ export const TIER4F: Word[] = [
         gloss: "당사자",
       },
       {
-        sentence: "A third <b>party</b> was asked to review the evidence.",
-        senseKey: "side",
-        gloss: "제삼자",
+        sentence: "The <b>party</b> lost its majority in the last election.",
+        senseKey: "politics",
+        gloss: "정당",
       },
     ],
     reverse: {
@@ -523,9 +523,9 @@ export const TIER4F: Word[] = [
         gloss: "대중의·대량의",
       },
       {
-        sentence: "A <b>mass</b> of contradictory evidence had piled up.",
-        senseKey: "largeScale",
-        gloss: "다량·더미",
+        sentence: "In physics, <b>mass</b> and weight are not the same thing.",
+        senseKey: "physics",
+        gloss: "질량",
       },
     ],
     reverse: {
@@ -1318,9 +1318,9 @@ export const TIER4F: Word[] = [
         gloss: "타격",
       },
       {
-        sentence: "Losing the archive was a <b>blow</b> from which the field never recovered.",
-        senseKey: "shock",
-        gloss: "충격·타격",
+        sentence: "The fuse <b>blew</b> and the whole building went dark.",
+        senseKey: "burst",
+        gloss: "터지다·나가다",
       },
     ],
     reverse: {

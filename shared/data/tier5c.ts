@@ -85,11 +85,13 @@ export const TIER5C: Word[] = [
         bridge: "밖의 단서에서 속의 뜻을 실어 오다",
       },
       {
-        key: "imply",
-        label: "(글이) 함축을 담다",
-        exEn: "The tone infers disapproval.",
-        exKo: "그 어조는 못마땅함을 내비친다.",
-        bridge: "겉말 안쪽에 뜻이 실려 있다",
+        // ⚠️ infer 를 "함축하다(imply)"로 가르치면 안 된다 — 정확히 반대 방향이다.
+        // 글이 imply 하고, 읽는 사람이 infer 한다. 수능에서 이 구분을 묻는다.
+        key: "estimate",
+        label: "(수치를) 추정해 내다",
+        exEn: "Astronomers infer a star's mass from its brightness.",
+        exKo: "천문학자들은 별의 밝기에서 질량을 추정한다.",
+        bridge: "잴 수 없는 값을 잰 값에서 실어 오다",
       },
       {
         key: "deduceIdentity",
@@ -106,9 +108,9 @@ export const TIER5C: Word[] = [
         gloss: "추론하다·읽어 내다",
       },
       {
-        sentence: "We cannot <b>infer</b> cause from correlation alone.",
-        senseKey: "conclude",
-        gloss: "추론하다",
+        sentence: "Scientists <b>infer</b> the age of the ice from the layers within it.",
+        senseKey: "estimate",
+        gloss: "(수치를) 추정하다",
       },
     ],
     reverse: {
@@ -481,9 +483,9 @@ export const TIER5C: Word[] = [
         gloss: "측면·부분",
       },
       {
-        sentence: "Language shapes almost every <b>aspect</b> of thought.",
-        senseKey: "side",
-        gloss: "면·영역",
+        sentence: "The town took on a festive <b>aspect</b> during the holidays.",
+        senseKey: "appearance",
+        gloss: "겉모습·양상",
       },
     ],
     reverse: {

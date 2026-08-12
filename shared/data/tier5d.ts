@@ -374,9 +374,9 @@ export const TIER5D: Word[] = [
         gloss: "앞에 오다·선행하다",
       },
       {
-        sentence: "A long period of drought <b>preceded</b> the collapse.",
-        senseKey: "comeBefore",
-        gloss: "~에 앞서다",
+        sentence: "In every safety code, caution <b>precedes</b> speed.",
+        senseKey: "rank",
+        gloss: "(순위가) 앞서다·우선하다",
       },
     ],
     reverse: {
@@ -855,9 +855,9 @@ export const TIER5D: Word[] = [
         gloss: "사용하다·구사하다",
       },
       {
-        sentence: "The technique was first <b>employed</b> in the 1970s.",
-        senseKey: "use",
-        gloss: "쓰이다·활용되다",
+        sentence: "The factory <b>employs</b> nearly a thousand workers.",
+        senseKey: "hire",
+        gloss: "고용하다",
       },
     ],
     reverse: {

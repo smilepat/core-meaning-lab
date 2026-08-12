@@ -258,9 +258,9 @@ export const TIER4D: Word[] = [
         gloss: "자본·자산",
       },
       {
-        sentence: "Trust is the <b>capital</b> on which every market runs.",
-        senseKey: "money",
-        gloss: "밑천·자본",
+        sentence: "In this debate, one question is of <b>capital</b> importance.",
+        senseKey: "chief",
+        gloss: "대단히 중요한·으뜸가는",
       },
     ],
     reverse: {
@@ -841,9 +841,9 @@ export const TIER4D: Word[] = [
         gloss: "정도",
       },
       {
-        sentence: "Success depends to a large <b>degree</b> on timing.",
-        senseKey: "extent",
-        gloss: "정도·상당 부분",
+        sentence: "She earned a <b>degree</b> in economics before turning to law.",
+        senseKey: "diploma",
+        gloss: "학위",
       },
     ],
     reverse: {
@@ -1000,9 +1000,9 @@ export const TIER4D: Word[] = [
         gloss: "초안",
       },
       {
-        sentence: "Writers who revise many <b>drafts</b> produce clearer work.",
-        senseKey: "version",
-        gloss: "초고·원고",
+        sentence: "Thousands of young men were <b>drafted</b> into the army that year.",
+        senseKey: "conscript",
+        gloss: "징집되다",
       },
     ],
     reverse: {
@@ -1053,9 +1053,9 @@ export const TIER4D: Word[] = [
         gloss: "함께 있음·동석",
       },
       {
-        sentence: "Loneliness is not simply the absence of <b>company</b>.",
-        senseKey: "presence",
-        gloss: "동행·곁에 있는 사람",
+        sentence: "The <b>company</b> was founded by two engineers in a garage.",
+        senseKey: "firm",
+        gloss: "회사",
       },
     ],
     reverse: {

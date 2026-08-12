@@ -898,9 +898,9 @@ export const TIER5B: Word[] = [
         gloss: "바꾸다·전환하다",
       },
       {
-        sentence: "Ancient temples were later <b>converted</b> into churches.",
-        senseKey: "change",
-        gloss: "개조되다",
+        sentence: "Many <b>converted</b> to the new faith within a single generation.",
+        senseKey: "belief",
+        gloss: "개종하다·전향하다",
       },
     ],
     reverse: {

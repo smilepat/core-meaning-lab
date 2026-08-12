@@ -57,9 +57,9 @@ export const TIER5E: Word[] = [
         gloss: "끌어들이다·유인하다",
       },
       {
-        sentence: "The theory <b>attracted</b> fierce criticism at first.",
-        senseKey: "drawInterest",
-        gloss: "(비판을) 불러 모으다",
+        sentence: "The moon <b>attracts</b> the oceans and creates the tides.",
+        senseKey: "pull",
+        gloss: "(물리적으로) 끌어당기다",
       },
     ],
     reverse: {
@@ -110,9 +110,9 @@ export const TIER5E: Word[] = [
         gloss: "수축하다",
       },
       {
-        sentence: "The economy <b>contracted</b> for three straight quarters.",
-        senseKey: "shrink",
-        gloss: "위축되다·줄어들다",
+        sentence: "He <b>contracted</b> malaria while working abroad.",
+        senseKey: "catch",
+        gloss: "(병에) 걸리다",
       },
     ],
     reverse: {
@@ -752,9 +752,9 @@ export const TIER5E: Word[] = [
         gloss: "되풀이되다",
       },
       {
-        sentence: "Droughts have <b>recurred</b> in this region for centuries.",
-        senseKey: "repeat",
-        gloss: "반복해 발생하다",
+        sentence: "The same image <b>recurred</b> in her dreams for weeks.",
+        senseKey: "comeBack",
+        gloss: "자꾸 떠오르다·되살아나다",
       },
     ],
     reverse: {
@@ -1019,9 +1019,9 @@ export const TIER5E: Word[] = [
         gloss: "관습·약속",
       },
       {
-        sentence: "Artists gain power by breaking <b>convention</b> deliberately.",
-        senseKey: "custom",
-        gloss: "관례·통념",
+        sentence: "The <b>convention</b> on climate change was signed by 195 countries.",
+        senseKey: "treaty",
+        gloss: "협약",
       },
     ],
     reverse: {
@@ -1286,9 +1286,9 @@ export const TIER5E: Word[] = [
         gloss: "상황·정황",
       },
       {
-        sentence: "Under no <b>circumstances</b> should the seal be broken.",
-        senseKey: "situation",
-        gloss: "어떤 경우에도",
+        sentence: "She rose to prominence despite humble <b>circumstances</b>.",
+        senseKey: "condition",
+        gloss: "형편·처지",
       },
     ],
     reverse: {
