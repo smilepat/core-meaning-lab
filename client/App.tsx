@@ -4,6 +4,7 @@ import { fetchHealth, fetchWords } from "./lib/api.ts";
 import { hasSeenGuide, loadProgress, markGuideSeen, recordScore, stampSense } from "./lib/progress.ts";
 import { ContextStage } from "./components/ContextStage.tsx";
 import { Guide } from "./components/Guide.tsx";
+import { Masthead } from "./components/Masthead.tsx";
 import { Present } from "./components/Present.tsx";
 import { Report } from "./components/Report.tsx";
 import { ReverseStage } from "./components/ReverseStage.tsx";
@@ -72,23 +73,20 @@ export default function App() {
       {showGuide && <Guide words={words} onClose={closeGuide} />}
       <header>
         <div className="wrap">
+          {/* 앱 이름은 아래 제호(Masthead)가 맡는다. 여기서 또 쓰면 같은 제목이
+              150px 간격으로 두 번 나와 실수처럼 보인다. */}
           <div className="brand">
-            <h1>
-              Core Meaning <span>Lab</span>
-            </h1>
-            <div className="brand-right">
-              <div className="engine">
-                <span className={`dot${aiEnabled ? " on" : ""}`} />
-                <span>{engineLabel}</span>
-              </div>
-              <button
-                className="guide-open"
-                onClick={() => setShowGuide(true)}
-                aria-label="앱 소개와 사용법 보기"
-              >
-                안내
-              </button>
+            <div className="engine">
+              <span className={`dot${aiEnabled ? " on" : ""}`} />
+              <span>{engineLabel}</span>
             </div>
+            <button
+              className="guide-open"
+              onClick={() => setShowGuide(true)}
+              aria-label="앱 소개와 사용법 보기"
+            >
+              안내
+            </button>
           </div>
           <WordPicker
             words={words}
@@ -104,6 +102,7 @@ export default function App() {
       <main className="wrap">
         {loadError && <div className="empty">{loadError}</div>}
         {!loadError && !word && <div className="empty">불러오는 중…</div>}
+        {word && stage === "present" && <Masthead />}
         {word && stage === "present" && <p className="groupnote">{groupBlurb(group)}</p>}
         {word && stage === "present" && <Present word={word} onNext={() => setStage("map")} />}
         {word && stage === "map" && (
