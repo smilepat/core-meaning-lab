@@ -75,15 +75,22 @@
   .chip.active .rk{color:rgba(255,255,255,.75)}
   .groupnote{font-size:12px;color:var(--ink-soft);margin:0 2px 12px}
 
-  /* 제호 — 학습을 시작하는 자리에서 이 앱의 주장을 밝힌다.
-     상자로 두르지 않는다. 아래 단어 카드가 주인공인데 배너가 그걸 이기면 안 된다. */
-  .masthead{margin:0 2px 16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
-  .mh-title{font-size:21px;font-weight:800;letter-spacing:-.5px;margin:0}
+  /* 제호 — 페이지 맨 위. sticky 헤더보다 위라 열면 먼저 보이고 스크롤하면 밀려 올라간다.
+     화면 폭을 꽉 채우되 글은 .wrap 안에 두어 헤더·본문과 왼쪽 선을 맞춘다. */
+  .masthead{background:var(--surface);border-bottom:1px solid var(--line);
+    padding:calc(env(safe-area-inset-top) + 18px) 0 16px}
+  .mh-title{font-size:23px;font-weight:800;letter-spacing:-.6px;margin:0;line-height:1.2}
   .mh-title span{color:var(--brand)}
-  .mh-lead{font-size:13.5px;line-height:1.62;color:var(--ink);margin:7px 0 0}
-  .mh-lead b{font-weight:700}
-  .mh-tail{font-size:12.5px;color:var(--accent);font-weight:600;margin:6px 0 0}
-  .mh-tail b{font-weight:800}
+  .mh-lead{font-size:13.5px;line-height:1.65;color:var(--ink-soft);margin:8px 0 0;max-width:44em}
+  .mh-lead b{font-weight:700;color:var(--ink)}
+
+  /* 주장을 한 줄 그림으로 — 글보다 이쪽이 먼저 읽힌다 */
+  .mh-swap{display:flex;align-items:center;gap:8px;margin-top:12px;flex-wrap:wrap}
+  .mh-chip{font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 12px;white-space:nowrap}
+  .mh-chip.off{color:var(--ink-soft);background:var(--surface-2);text-decoration:line-through;
+    text-decoration-thickness:1.5px;text-decoration-color:var(--bad)}
+  .mh-chip.on{color:#fff;background:var(--brand)}
+  .mh-arrow{color:var(--ink-soft);font-size:13px;font-weight:800}
 
   /* min-height 를 두면 내용이 짧아도 main 이 화면 높이만큼 늘어나 nav 를 저 아래로 민다.
      학습자가 '제시'만 보고 다음 단계가 있다는 걸 모르게 되는 원인이었다. */

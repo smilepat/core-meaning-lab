@@ -71,6 +71,8 @@ export default function App() {
   return (
     <>
       {showGuide && <Guide words={words} onClose={closeGuide} />}
+      {/* sticky 헤더보다 위. 열면 가장 먼저 보이고, 스크롤하면 밀려 올라간다. */}
+      <Masthead />
       <header>
         <div className="wrap">
           {/* 앱 이름은 아래 제호(Masthead)가 맡는다. 여기서 또 쓰면 같은 제목이
@@ -102,7 +104,6 @@ export default function App() {
       <main className="wrap">
         {loadError && <div className="empty">{loadError}</div>}
         {!loadError && !word && <div className="empty">불러오는 중…</div>}
-        {word && stage === "present" && <Masthead />}
         {word && stage === "present" && <p className="groupnote">{groupBlurb(group)}</p>}
         {word && stage === "present" && <Present word={word} onNext={() => setStage("map")} />}
         {word && stage === "map" && (
