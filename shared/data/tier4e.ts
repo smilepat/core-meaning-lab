@@ -429,59 +429,6 @@ export const TIER4E: Word[] = [
     },
   },
   {
-    id: "spare",
-    word: "spare",
-    pos: "동사·형용사",
-    tier: 4,
-    rank: 0,
-    core: {
-      ko: "쓰지 않고 남겨 두다",
-      image: "다 쓰지 않고 얼마를 덜어 남기는 그림",
-      exEn: "Do you have a spare pen?",
-      exKo: "여분의 펜 있나요?",
-    },
-    senses: [
-      {
-        key: "give",
-        label: "(시간을) 내주다",
-        exEn: "Can you spare a minute?",
-        exKo: "잠깐 시간 좀 내줄 수 있나요?",
-        bridge: "내 몫에서 덜어 건네다",
-      },
-      {
-        key: "saveFrom",
-        label: "(수고를) 면하게 하다",
-        exEn: "That would spare us a lot of trouble.",
-        exKo: "그러면 우리는 큰 수고를 덜 것이다.",
-        bridge: "겪지 않게 덜어 주다",
-      },
-      {
-        key: "extra",
-        label: "여분의·남는",
-        exEn: "She reads in her spare time.",
-        exKo: "그녀는 남는 시간에 책을 읽는다.",
-        bridge: "쓰고 남겨 둔 몫",
-      },
-    ],
-    context: [
-      {
-        sentence: "Early warning <b>spared</b> the village from disaster.",
-        senseKey: "saveFrom",
-        gloss: "면하게 하다·모면시키다",
-      },
-      {
-        sentence: "Few adults have any <b>spare</b> attention left by evening.",
-        senseKey: "extra",
-        gloss: "여분의·남는",
-      },
-    ],
-    reverse: {
-      senseKey: "saveFrom",
-      scene: "그 결정이 우리에게 많은 어려움을 덜어 주었다는 뜻으로",
-      sample: "The decision spared us a lot of trouble.",
-    },
-  },
-  {
     id: "story",
     word: "story",
     pos: "명사",

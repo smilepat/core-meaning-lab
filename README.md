@@ -56,8 +56,30 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | 1군 최우선 핵심 | 20 | 하나의 core 에서 가장 많은 뜻이 뻗어나간다. `run` `address` `hold` `draw` `take` … |
 | 2군 매우 중요 | 20 | 지문 전 영역에 고르게 깔린다. `account` `claim` `deal` `figure` `regard` … |
 | 3군 추상 지문 빈출 | 20 | 논설·과학 지문의 라틴계 어휘. 어원이 곧 core 다. `derive` `assume` `suggest` … |
-| 4군 확장 · 구체어 | 128 | 뜻이 쉬워 보여 오히려 틀리는 자리. `ground` `novel` `interest` `nature` `stake` … |
-| 5군 확장 · 추상어 | 112 | 접두사만 갈아 끼운 한 식구. `persist` `succeed` `circumstance` `occur` `imply` … |
+| 4군 확장 · 구체어 | 133 | 뜻이 쉬워 보여 오히려 틀리는 자리. `make` `use` `well` `out` `ground` `novel` … |
+| 5군 확장 · 추상어 | 107 | 접두사만 갈아 끼운 한 식구. `persist` `succeed` `circumstance` `occur` `imply` … |
+
+### 단어를 어떻게 골랐는지 — 코퍼스 대조 (2026-08-12)
+
+1~3군 60개는 설계에서 확정한 목록이고, 4·5군 240개는 처음에 **판단으로** 채웠다.
+나중에 `csat-vocab-coverage` 레포의 **수능 565 정본 기출 지문**(88,712 토큰)에 대조해 보니
+쏠림이 드러났다 — 어근 가족을 "네 형제"로 맞추려고 넣은 5군 단어가 실제 지문에는
+거의 안 나왔고, 반대로 `make`(230회) `use`(222회) 같은 최고빈도 다의어가 빠져 있었다.
+
+그래서 **18개를 교체했다.**
+
+| | 뺀 것 | 넣은 것 |
+|---|---|---|
+| 기준 | 565 정본에서 0~2회 | 50회 이상 + 진짜 다의어 |
+| 예 | `vessel` `strain` `transfer` `deduce` `extract` | `make` `use` `become` `like` `change` `find` |
+
+어근 가족이 4개 밑으로 떨어지지 않는 선에서만 뺐다. `persist` `inspect` `admit` 등도
+0회지만 4인 가족이라 남겼다 — **빈도보다 학습 장치를 지키는 쪽을 택한 자리**다.
+
+`group` `number` `problem` 처럼 빈도가 높아도 다의어가 아닌 단어는 넣지 않았다.
+이 앱이 다루는 것은 어휘량이 아니라 다의성이다.
+
+결과: 565 정본에 한 번도 안 나오는 단어 28개 → **18개**, 6회 이상 203개 → **221개**.
 
 **1~3군은 설계에서 확정한 정본이라 개수를 늘리지 않는다** (각 20개, 테스트가 못 박고 있다).
 300 으로 넓히는 분량은 4·5군에 쌓는다.
@@ -74,16 +96,16 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 |---|---|
 | `sistere` 서다 | con**sist**(함께) · per**sist**(끝까지) · re**sist**(맞서) · in**sist**(위에) |
 | `tenere` 붙들다 | con**tain**(함께) · re**tain**(뒤로) · ob**tain**(~향해) · at**tain**(닿아) |
-| `ferre` 나르다 | con**fer**(함께) · in**fer**(안으로) · dif**fer**(따로) · suf**fer**(아래에서) |
+| `ferre` 나르다 | con**fer**(함께) · in**fer**(안으로) · dif**fer**(따로) · suf**fer**(아래에서) · re**fer** · **offer** |
 | `capere` 잡다 | ac**cept**(~쪽으로) · per**ceive**(속속들이) · con**ceive**(품어) · re**ceive**(되받아) |
 | `spectare` 보다 | a**spect**(~쪽에서) · re**spect**(다시) · in**spect**(안을) · su**spect**(아래에서) |
 | `mittere` 보내다 | ad**mit**(안으로) · com**mit**(맡겨) · per**mit**(통과시켜) · sub**mit**(아래로) |
 | `tendere` 뻗다 | at**tend**(~쪽으로) · in**tend**(겨눠) · pre**tend**(앞으로) · con**tend**(맞대고) |
 | `cedere` 가다 | pro**ceed**(앞으로) · ex**ceed**(선 밖으로) · pre**cede**(앞서) · suc**ceed**(뒤따라) |
 | `stare` 서다 | con**stant**(굳게) · di**stance**(떨어져) · sub**stance**(아래서 받쳐) · circum**stance**(둘레에) |
-| `trahere` 끌다 | at**tract**(~쪽으로) · con**tract**(함께 조여) · ex**tract**(밖으로) · di**stract**(딴 데로) |
+| `trahere` 끌다 | at**tract**(~쪽으로) · con**tract**(함께 조여) · di**stract**(딴 데로) |
 | `scribere` 쓰다 | de**scribe**(따라) · pre**scribe**(미리) · sub**scribe**(아래에) · in**scribe**(새겨) |
-| `portare` 나르다 | ex**port**(밖으로) · im**port**(안으로) · re**port**(되가져와) · trans**port**(건너) |
+| `portare` 나르다 | ex**port**(밖으로) · re**port**(되가져와) · trans**port**(건너) · sup**port** |
 | `currere` 달리다 | oc**cur**(마주 달려와) · re**cur**(되돌아) · con**cur**(함께) · in**cur**(달려 들어가) |
 | `venire` 오다 | pre**vent**(앞질러) · inter**vene**(사이로) · con**vention**(함께) · **event**(밖으로) |
 | `fundere` 붓다 | con**fuse**(뒤섞어) · re**fuse**(되돌려) · dif**fuse**(흩어) · in**fuse**(안으로) |
@@ -93,7 +115,7 @@ STEP 3·4는 3단계(0 미흡 / 1 보통 / 2 우수)로 채점되고, 한국어 
 | `plicare` 접다 | im**ply**(안으로) · com**ply**(맞춰) · re**ply**(되접어) · em**ploy**(끌어 넣어) |
 | `vocare` 부르다 | e**voke**(밖으로) · pro**voke**(앞으로) · in**voke**(안으로) · ad**vocate**(곁으로) |
 | `jacere` 던지다 | sub**ject**(아래에) · ob**ject**(앞에) · pro**ject**(앞으로) |
-| `ducere` 이끌다 | in**duce**(안으로) · de**duce**(아래로) · intro**duce**(안쪽으로) · con**duct**(함께) |
+| `ducere` 이끌다 | in**duce**(안으로) · intro**duce**(안쪽으로) · con**duct**(함께) |
 | `servare` 지키다 | pre**serve**(앞서) · con**serve**(축내지 않고) · re**serve**(뒤로) |
 | `premere` 누르다 | im**press**(안으로) · sup**press**(아래로) · ex**press**(밖으로) |
 | `tribuere` 나눠 주다 | at**tribute**(~쪽으로) · con**tribute**(함께) |
@@ -169,7 +191,7 @@ core-meaning-lab/
 │   └─ data/              단어 데이터 (손으로 고치는 정본)
 │       ├─ tier1~3.ts       정본 60개 — 개수를 늘리지 않는다
 │       ├─ tier4.ts         확장·구체어 (프로토타입 유산 20)
-│       ├─ tier4b~4f.ts     확장·구체어 (저작분 5차)
+│       ├─ tier4b~4g.ts     확장·구체어 (저작분 6차)
 │       ├─ tier5~5e.ts      확장·추상어 (5차)
 │       └─ roots.ts         라틴 어근 가족 — 단어마다 붙이지 않고 한곳에 모은다
 │                           파일 이름 = 군 + 저작 차수. 넓힐 때 새 파일을 만들어

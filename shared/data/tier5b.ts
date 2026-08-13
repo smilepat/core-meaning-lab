@@ -62,59 +62,6 @@ export const TIER5B: Word[] = [
     },
   },
   {
-    id: "deduce",
-    word: "deduce",
-    pos: "동사",
-    tier: 5,
-    rank: 0,
-    core: {
-      ko: "아래로 이끌어 내다",
-      image: "위의 큰 원리에서 아래의 결론을 실처럼 끌어내리는 그림 (de + ducere, 아래로 이끌다)",
-      exEn: "From the footprints he deduced her height.",
-      exKo: "그는 발자국에서 그녀의 키를 추론했다.",
-    },
-    senses: [
-      {
-        key: "infer",
-        label: "추론하다·연역하다",
-        exEn: "We can deduce the answer from these two facts.",
-        exKo: "이 두 사실에서 답을 추론할 수 있다.",
-        bridge: "전제에서 결론을 아래로 끌어내리다",
-      },
-      {
-        key: "conclude",
-        label: "미루어 알다",
-        exEn: "She deduced that he had already left.",
-        exKo: "그녀는 그가 이미 떠났다고 짐작했다.",
-        bridge: "단서에서 사실을 끌어내다",
-      },
-      {
-        key: "reason",
-        label: "논리로 밝히다",
-        exEn: "The law was deduced, not observed.",
-        exKo: "그 법칙은 관찰이 아니라 추론으로 얻어졌다.",
-        bridge: "실험이 아니라 이치로 끌어낸 것",
-      },
-    ],
-    context: [
-      {
-        sentence: "From a few bones, scientists <b>deduce</b> how the animal moved.",
-        senseKey: "infer",
-        gloss: "추론하다",
-      },
-      {
-        sentence: "Readers must <b>deduce</b> the author's attitude from tone alone.",
-        senseKey: "conclude",
-        gloss: "미루어 알다·짐작하다",
-      },
-    ],
-    reverse: {
-      senseKey: "infer",
-      scene: "우리는 그 자료에서 원인을 추론할 수 있다는 뜻으로",
-      sample: "We can deduce the cause from the data.",
-    },
-  },
-  {
     id: "introduce",
     word: "introduce",
     pos: "동사",
@@ -960,59 +907,6 @@ export const TIER5B: Word[] = [
       senseKey: "undo",
       scene: "그 정책이 하락 추세를 되돌렸다는 뜻으로",
       sample: "The policy reversed the downward trend.",
-    },
-  },
-  {
-    id: "transfer",
-    word: "transfer",
-    pos: "동사·명사",
-    tier: 5,
-    rank: 0,
-    core: {
-      ko: "건너 날라 옮기다",
-      image: "이쪽에서 저쪽으로 들어 옮겨 놓는 그림 (trans + ferre, 건너 나르다)",
-      exEn: "He transferred the files to a new drive.",
-      exKo: "그는 파일을 새 드라이브로 옮겼다.",
-    },
-    senses: [
-      {
-        key: "move",
-        label: "이전하다·옮기다",
-        exEn: "She transferred to another school.",
-        exKo: "그녀는 다른 학교로 전학했다.",
-        bridge: "몸이나 소속을 저쪽으로 나르다",
-      },
-      {
-        key: "applyElsewhere",
-        label: "(능력을) 전이시키다",
-        exEn: "Skills learned here transfer to other tasks.",
-        exKo: "여기서 익힌 기술은 다른 일에도 쓰인다.",
-        bridge: "배운 것을 다른 자리로 날라 쓰다",
-      },
-      {
-        key: "handOver",
-        label: "양도하다·넘기다",
-        exEn: "Ownership was transferred last year.",
-        exKo: "소유권은 작년에 넘어갔다.",
-        bridge: "권리를 저쪽으로 옮겨 주다",
-      },
-    ],
-    context: [
-      {
-        sentence: "Whether learning <b>transfers</b> to new situations is the real test.",
-        senseKey: "applyElsewhere",
-        gloss: "전이되다·옮겨 쓰이다",
-      },
-      {
-        sentence: "Heat <b>transfers</b> from warmer to cooler bodies.",
-        senseKey: "move",
-        gloss: "이동하다·옮겨 가다",
-      },
-    ],
-    reverse: {
-      senseKey: "applyElsewhere",
-      scene: "그 기술이 다른 분야에도 옮겨 쓰인다는 뜻으로",
-      sample: "The skill transfers to other fields as well.",
     },
   },
   {

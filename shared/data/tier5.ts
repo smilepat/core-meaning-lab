@@ -430,59 +430,6 @@ export const TIER5: Word[] = [
     },
   },
   {
-    id: "resolve",
-    word: "resolve",
-    pos: "동사·명사",
-    tier: 5,
-    rank: 0,
-    core: {
-      ko: "다시 풀어내다",
-      image: "엉킨 매듭을 도로 풀어 갈래를 드러내는 그림 (re + solvere, 다시 풀다)",
-      exEn: "They resolved the dispute quickly.",
-      exKo: "그들은 분쟁을 빠르게 해결했다.",
-    },
-    senses: [
-      {
-        key: "settle",
-        label: "해결하다",
-        exEn: "The issue was never resolved.",
-        exKo: "그 문제는 끝내 해결되지 않았다.",
-        bridge: "엉킨 것을 풀어 없애다",
-      },
-      {
-        key: "decide",
-        label: "결심하다",
-        exEn: "He resolved to try again.",
-        exKo: "그는 다시 시도하기로 결심했다.",
-        bridge: "망설임을 풀어 하나로 정하다",
-      },
-      {
-        key: "separate",
-        label: "분해하다·분해되다",
-        exEn: "White light resolves into many colors.",
-        exKo: "백색광은 여러 색으로 분해된다.",
-        bridge: "뭉쳐 있던 것을 갈래로 풀다",
-      },
-    ],
-    context: [
-      {
-        sentence: "The conflict cannot be <b>resolved</b> by force alone.",
-        senseKey: "settle",
-        gloss: "해결하다",
-      },
-      {
-        sentence: "A prism <b>resolves</b> sunlight into a spectrum.",
-        senseKey: "separate",
-        gloss: "분해하다·나누다",
-      },
-    ],
-    reverse: {
-      senseKey: "decide",
-      scene: "그녀는 다시는 포기하지 않기로 결심했다는 뜻으로",
-      sample: "She resolved never to give up again.",
-    },
-  },
-  {
     id: "evolve",
     word: "evolve",
     pos: "동사",

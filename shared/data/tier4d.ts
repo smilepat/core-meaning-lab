@@ -588,59 +588,6 @@ export const TIER4D: Word[] = [
     },
   },
   {
-    id: "strain",
-    word: "strain",
-    pos: "명사·동사",
-    tier: 4,
-    rank: 0,
-    core: {
-      ko: "팽팽히 잡아당기다",
-      image: "줄을 끊어지기 직전까지 당기는 그림",
-      exEn: "Don't strain the rope.",
-      exKo: "밧줄을 너무 당기지 마라.",
-    },
-    senses: [
-      {
-        key: "pressure",
-        label: "부담·긴장",
-        exEn: "The system is under strain.",
-        exKo: "그 체계는 부담을 받고 있다.",
-        bridge: "팽팽히 당겨진 상태",
-      },
-      {
-        key: "overuse",
-        label: "무리하게 쓰다",
-        exEn: "He strained his eyes reading in the dark.",
-        exKo: "그는 어둠 속에서 읽다가 눈을 혹사했다.",
-        bridge: "한계까지 당겨 쓰다",
-      },
-      {
-        key: "variety",
-        label: "품종·계통",
-        exEn: "A new strain of the virus appeared.",
-        exKo: "그 바이러스의 새로운 변종이 나타났다.",
-        bridge: "한 줄기로 이어져 내려온 계통",
-      },
-    ],
-    context: [
-      {
-        sentence: "Rapid growth put enormous <b>strain</b> on the city's water supply.",
-        senseKey: "pressure",
-        gloss: "부담·압박",
-      },
-      {
-        sentence: "Researchers identified a resistant <b>strain</b> of the bacterium.",
-        senseKey: "variety",
-        gloss: "변종·계통",
-      },
-    ],
-    reverse: {
-      senseKey: "pressure",
-      scene: "그 결정이 두 나라 관계에 부담을 주었다는 뜻으로",
-      sample: "The decision put a strain on relations between the two countries.",
-    },
-  },
-  {
     id: "tie",
     word: "tie",
     pos: "동사·명사",
@@ -691,59 +638,6 @@ export const TIER4D: Word[] = [
       senseKey: "link",
       scene: "그 문제가 교육과 밀접히 연결되어 있다는 뜻으로",
       sample: "The problem is closely tied to education.",
-    },
-  },
-  {
-    id: "trace",
-    word: "trace",
-    pos: "동사·명사",
-    tier: 4,
-    rank: 0,
-    core: {
-      ko: "남은 자국을 따라가다",
-      image: "발자국을 하나씩 짚어 가며 뒤를 밟는 그림",
-      exEn: "Police traced the call.",
-      exKo: "경찰이 그 통화를 추적했다.",
-    },
-    senses: [
-      {
-        key: "origin",
-        label: "기원을 찾아 거슬러 가다 (trace back to)",
-        exEn: "The custom traces back to the Middle Ages.",
-        exKo: "그 관습은 중세까지 거슬러 올라간다.",
-        bridge: "자국을 거꾸로 밟아 출발점까지",
-      },
-      {
-        key: "mark",
-        label: "흔적·자취",
-        exEn: "No trace of the building remains.",
-        exKo: "그 건물의 흔적은 남아 있지 않다.",
-        bridge: "지나간 자리에 남은 자국",
-      },
-      {
-        key: "tiny",
-        label: "극미량",
-        exEn: "The water contains traces of metal.",
-        exKo: "그 물에는 미량의 금속이 들어 있다.",
-        bridge: "겨우 자국만큼의 양",
-      },
-    ],
-    context: [
-      {
-        sentence: "The word can be <b>traced</b> back to an old Norse root.",
-        senseKey: "origin",
-        gloss: "거슬러 올라가다·기원을 두다",
-      },
-      {
-        sentence: "Ice cores preserve <b>traces</b> of ancient air.",
-        senseKey: "mark",
-        gloss: "흔적",
-      },
-    ],
-    reverse: {
-      senseKey: "origin",
-      scene: "그 전통이 삼국시대까지 거슬러 올라간다는 뜻으로",
-      sample: "The tradition traces back to the Three Kingdoms period.",
     },
   },
   {
@@ -956,59 +850,6 @@ export const TIER4D: Word[] = [
       senseKey: "surge",
       scene: "이민의 물결이 그 도시를 바꿔 놓았다는 뜻으로",
       sample: "A wave of immigration changed the city.",
-    },
-  },
-  {
-    id: "draft",
-    word: "draft",
-    pos: "명사·동사",
-    tier: 4,
-    rank: 0,
-    core: {
-      ko: "끌어당겨 뽑아낸 것",
-      image: "아직 다듬지 않은 채 일단 끌어내 놓은 그림 (draw 와 같은 뿌리)",
-      exEn: "This is only a first draft.",
-      exKo: "이건 초고일 뿐이다.",
-    },
-    senses: [
-      {
-        key: "version",
-        label: "초안·초고",
-        exEn: "She revised the draft three times.",
-        exKo: "그녀는 초고를 세 번 고쳤다.",
-        bridge: "일단 끌어내 놓은 형태",
-      },
-      {
-        key: "conscript",
-        label: "징집하다",
-        exEn: "He was drafted into the army.",
-        exKo: "그는 군에 징집되었다.",
-        bridge: "사람을 끌어다 세우다",
-      },
-      {
-        key: "air",
-        label: "외풍",
-        exEn: "There's a cold draft from the window.",
-        exKo: "창문에서 찬 바람이 들어온다.",
-        bridge: "공기가 끌려 들어오는 흐름",
-      },
-    ],
-    context: [
-      {
-        sentence: "The committee circulated a <b>draft</b> of the agreement.",
-        senseKey: "version",
-        gloss: "초안",
-      },
-      {
-        sentence: "Thousands of young men were <b>drafted</b> into the army that year.",
-        senseKey: "conscript",
-        gloss: "징집되다",
-      },
-    ],
-    reverse: {
-      senseKey: "version",
-      scene: "그가 그 보고서의 초안을 썼다는 뜻으로",
-      sample: "He wrote the first draft of the report.",
     },
   },
   {

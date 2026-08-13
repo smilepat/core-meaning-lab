@@ -11,6 +11,7 @@ import { TIER4C } from "./data/tier4c.ts";
 import { TIER4D } from "./data/tier4d.ts";
 import { TIER4E } from "./data/tier4e.ts";
 import { TIER4F } from "./data/tier4f.ts";
+import { TIER4G } from "./data/tier4g.ts";
 import { TIER5 } from "./data/tier5.ts";
 import { TIER5B } from "./data/tier5b.ts";
 import { TIER5C } from "./data/tier5c.ts";
@@ -93,6 +94,7 @@ const ALL: Word[] = [
   ...TIER4D,
   ...TIER4E,
   ...TIER4F,
+  ...TIER4G,
   ...TIER5,
   ...TIER5B,
   ...TIER5C,

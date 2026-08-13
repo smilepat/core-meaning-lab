@@ -122,59 +122,6 @@ export const TIER5E: Word[] = [
     },
   },
   {
-    id: "extract",
-    word: "extract",
-    pos: "동사·명사",
-    tier: 5,
-    rank: 0,
-    core: {
-      ko: "밖으로 끌어내다",
-      image: "박혀 있던 것을 힘주어 뽑아내는 그림 (ex + trahere, 밖으로 끌다)",
-      exEn: "The dentist extracted a tooth.",
-      exKo: "치과의사가 이를 뽑았다.",
-    },
-    senses: [
-      {
-        key: "obtain",
-        label: "뽑아내다·추출하다",
-        exEn: "Oil is extracted from the seeds.",
-        exKo: "기름은 그 씨앗에서 추출된다.",
-        bridge: "속에 든 것을 밖으로 끌어내다",
-      },
-      {
-        key: "elicit",
-        label: "(정보를) 얻어 내다",
-        exEn: "They extracted a confession from him.",
-        exKo: "그들은 그에게서 자백을 받아 냈다.",
-        bridge: "감춘 것을 끌어내다",
-      },
-      {
-        key: "excerpt",
-        label: "발췌",
-        exEn: "Read this extract from the novel.",
-        exKo: "그 소설의 이 발췌문을 읽어라.",
-        bridge: "전체에서 뽑아낸 한 토막",
-      },
-    ],
-    context: [
-      {
-        sentence: "Researchers <b>extract</b> DNA from bones thousands of years old.",
-        senseKey: "obtain",
-        gloss: "추출하다·뽑아내다",
-      },
-      {
-        sentence: "Good readers <b>extract</b> the argument from a mass of detail.",
-        senseKey: "elicit",
-        gloss: "끌어내다·건져 내다",
-      },
-    ],
-    reverse: {
-      senseKey: "obtain",
-      scene: "과학자들이 그 식물에서 유용한 물질을 추출한다는 뜻으로",
-      sample: "Scientists extract a useful substance from the plant.",
-    },
-  },
-  {
     id: "distract",
     word: "distract",
     pos: "동사",
@@ -494,59 +441,6 @@ export const TIER5E: Word[] = [
       senseKey: "sendOut",
       scene: "그 나라가 자동차를 유럽에 수출한다는 뜻으로",
       sample: "The country exports cars to Europe.",
-    },
-  },
-  {
-    id: "import",
-    word: "import",
-    pos: "동사·명사",
-    tier: 5,
-    rank: 0,
-    core: {
-      ko: "안으로 실어 들이다",
-      image: "국경 안쪽으로 짐을 들여오는 그림 (in + portare, 안으로 나르다)",
-      exEn: "Japan imports most of its oil.",
-      exKo: "일본은 석유 대부분을 수입한다.",
-    },
-    senses: [
-      {
-        key: "bringIn",
-        label: "수입하다",
-        exEn: "The store imports goods from Italy.",
-        exKo: "그 가게는 이탈리아에서 물건을 들여온다.",
-        bridge: "국경 안으로 실어 들이다",
-      },
-      {
-        key: "adopt",
-        label: "(제도를) 들여오다",
-        exEn: "The system was imported from abroad.",
-        exKo: "그 제도는 외국에서 들여온 것이다.",
-        bridge: "남의 것을 안으로 실어 오다",
-      },
-      {
-        key: "significance",
-        label: "중요성·함의",
-        exEn: "The decision is of great import.",
-        exKo: "그 결정은 중대한 의미를 지닌다.",
-        bridge: "안으로 실어 온 무게",
-      },
-    ],
-    context: [
-      {
-        sentence: "Many words in English were <b>imported</b> from French.",
-        senseKey: "adopt",
-        gloss: "들여오다·차용하다",
-      },
-      {
-        sentence: "The country <b>imports</b> nearly all of its grain.",
-        senseKey: "bringIn",
-        gloss: "수입하다",
-      },
-    ],
-    reverse: {
-      senseKey: "adopt",
-      scene: "그 나라가 서구의 교육 제도를 들여왔다는 뜻으로",
-      sample: "The country imported the Western school system.",
     },
   },
   {

@@ -23,7 +23,7 @@ function result(score: Score, feedback: string, modelAnswer: string): GradeResul
  */
 const IRREGULAR: Record<string, string[]> = {
   bear: ["bore", "borne", "born"],
-  blow: ["blew", "blown"],
+  become: ["became"],
   break: ["broke", "broken"],
   bring: ["brought"],
   build: ["built"],
@@ -33,21 +33,22 @@ const IRREGULAR: Record<string, string[]> = {
   drive: ["drove", "driven"],
   fall: ["fell", "fallen"],
   feel: ["felt"],
+  find: ["found"],
   get: ["got", "gotten"],
+  give: ["gave", "given"],
   hold: ["held"],
   lead: ["led"],
   leave: ["left"],
-  lift: ["lifted"],
+  make: ["made"],
   mean: ["meant"],
   run: ["ran"],
-  spell: ["spelt", "spelled"],
+  show: ["shown"],
   spring: ["sprang", "sprung"],
   stand: ["stood"],
   stick: ["stuck"],
   strike: ["struck", "stricken"],
   take: ["took", "taken"],
   tell: ["told"],
-  weigh: ["weighed"],
 };
 
 /** 규칙 굴절을 되돌려 원형 후보를 만든다. carries → carry, applied → apply, running → run. */
