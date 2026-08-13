@@ -17,7 +17,8 @@
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",Segoe UI,Roboto,sans-serif;
     background:var(--bg); color:var(--ink); line-height:1.55;
-    padding-bottom:calc(72px + env(safe-area-inset-bottom));
+    /* nav 가 sticky 라 흐름 안에 있다. 자리를 미리 비워 둘 필요가 없다 */
+    padding-bottom:env(safe-area-inset-bottom);
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:560px;margin:0 auto;padding:0 14px}
@@ -76,7 +77,9 @@
   .chip.active .rk{color:rgba(255,255,255,.75)}
   .groupnote{font-size:12px;color:var(--ink-soft);margin:0 2px 12px}
 
-  main{padding-top:16px;min-height:60vh}
+  /* min-height 를 두면 내용이 짧아도 main 이 화면 높이만큼 늘어나 nav 를 저 아래로 민다.
+     학습자가 '제시'만 보고 다음 단계가 있다는 걸 모르게 되는 원인이었다. */
+  main{padding-top:16px;padding-bottom:14px}
   .stagehead{display:flex;align-items:baseline;gap:8px;margin:2px 2px 12px}
   .stagehead .n{font-size:12px;font-weight:800;color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:2px 8px}
   .stagehead h2{font-size:18px;margin:0;font-weight:800;letter-spacing:-.3px}
@@ -167,8 +170,11 @@
   .cell .w{font-size:14px;font-weight:700}
   .empty{text-align:center;color:var(--ink-soft);font-size:14px;padding:30px 10px}
 
-  /* Bottom nav */
-  nav{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
+  /* 단계 이동 바.
+     fixed 였을 때는 뷰포트 맨 아래에 못박혀, 세로가 긴 화면에서 카드와 한참 떨어졌다.
+     sticky 로 두면 내용이 짧을 땐 카드 바로 밑에 따라붙고, 길 땐 스크롤 중 하단에
+     머문다 — 모바일의 엄지 도달성을 잃지 않으면서 데스크톱의 빈 공간만 없앤다. */
+  nav{position:sticky;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);
     display:flex;padding:6px 4px calc(6px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
   nav button{flex:1;border:none;background:none;color:var(--ink-soft);font-family:inherit;cursor:pointer;
     display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;font-size:10.5px;font-weight:600;border-radius:10px}

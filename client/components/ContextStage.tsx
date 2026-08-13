@@ -9,7 +9,7 @@ interface Props {
   onGraded: (result: GradeResult) => void;
 }
 
-export function ContextStage({ word, onGraded }: Props) {
+export function ContextStage({ word, onGraded, onNext }: Props & { onNext: () => void }) {
   return (
     <>
       <StageHead n="STEP 3" title="문맥복원" sub={`${word.context.length}문항 · 3단계 채점`} />
@@ -22,6 +22,9 @@ export function ContextStage({ word, onGraded }: Props) {
           onGraded={onGraded}
         />
       ))}
+      <button className="btn ghost" onClick={onNext}>
+        이번엔 내가 문장을 만들어 보자 →
+      </button>
       <p className="hint">문장 속 뜻을 핵심 의미와 연결해 설명하면 '우수'입니다.</p>
     </>
   );

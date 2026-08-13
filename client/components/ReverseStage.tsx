@@ -9,7 +9,7 @@ interface Props {
   onGraded: (result: GradeResult) => void;
 }
 
-export function ReverseStage({ word, onGraded }: Props) {
+export function ReverseStage({ word, onGraded, onNext }: Props & { onNext: () => void }) {
   const [answer, setAnswer] = useState("");
   const [grading, setGrading] = useState(false);
   const [result, setResult] = useState<GradeResult | null>(null);
@@ -50,6 +50,9 @@ export function ReverseStage({ word, onGraded }: Props) {
         {error && <div className="fb">{error}</div>}
         {result && <ResultCard result={result} />}
       </div>
+      <button className="btn ghost" onClick={onNext}>
+        진도 확인하고 다음 단어로 →
+      </button>
       <p className="hint">단어를 목표 의미로 정확히 쓰고 문장이 자연스러우면 '우수'입니다.</p>
     </>
   );

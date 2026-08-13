@@ -6,9 +6,10 @@ interface Props {
   word: Word;
   record: WordProgress | undefined;
   onSeeSense: (senseKey: string) => void;
+  onNext: () => void;
 }
 
-export function SenseMap({ word, record, onSeeSense }: Props) {
+export function SenseMap({ word, record, onSeeSense, onNext }: Props) {
   const [openKey, setOpenKey] = useState<string | null>(null);
 
   function toggle(senseKey: string) {
@@ -51,6 +52,9 @@ export function SenseMap({ word, record, onSeeSense }: Props) {
           );
         })}
       </div>
+      <button className="btn" onClick={onNext}>
+        이제 문장 속에서 직접 복원해 보자 →
+      </button>
       <p className="hint">가지를 눌러 '왜 그 뜻으로 확장되는지'를 확인하세요.</p>
     </>
   );

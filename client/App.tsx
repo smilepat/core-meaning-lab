@@ -113,13 +113,22 @@ export default function App() {
             onSeeSense={(senseKey) =>
               setProgress((current) => stampSense(current, word.id, senseKey))
             }
+            onNext={() => setStage("context")}
           />
         )}
         {word && stage === "context" && (
-          <ContextStage word={word} onGraded={(r) => handleGraded("ctx", r)} />
+          <ContextStage
+            word={word}
+            onGraded={(r) => handleGraded("ctx", r)}
+            onNext={() => setStage("reverse")}
+          />
         )}
         {word && stage === "reverse" && (
-          <ReverseStage word={word} onGraded={(r) => handleGraded("rev", r)} />
+          <ReverseStage
+            word={word}
+            onGraded={(r) => handleGraded("rev", r)}
+            onNext={() => setStage("report")}
+          />
         )}
         {stage === "report" && <Report words={words} progress={progress} onPick={selectWord} />}
       </main>
