@@ -133,7 +133,10 @@
 
   /* Tasks */
   .prompt-line{font-size:13px;color:var(--ink-soft);margin-bottom:8px}
-  .sense-tag{display:inline-block;font-size:12px;font-weight:700;color:var(--brand);background:var(--brand-soft);border-radius:8px;padding:3px 9px;margin-bottom:8px}
+  /* 문맥복원에서 이 태그는 학생이 써야 할 답과 겹친다. 눈에 먼저 들어오면 안 된다 —
+     브랜드색 강조를 빼고 흐린 회색으로 낮춘다. 필요하면 찾아볼 수 있는 정도로만 남긴다. */
+  .sense-tag{display:inline-block;font-size:11.5px;font-weight:600;color:var(--ink-soft);
+    background:var(--surface-2);border-radius:8px;padding:3px 9px;margin-bottom:8px;opacity:.72}
   .sentence{font-size:17px;font-weight:600;line-height:1.5}
   .sentence b{color:var(--brand)}
   .scene{font-size:15px;font-weight:600;line-height:1.5;margin-top:2px}
