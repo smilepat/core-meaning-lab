@@ -7,9 +7,10 @@ interface Props {
   words: Word[];
   progress: Progress;
   onPick: (wordId: string) => void;
+  onReset: () => void;
 }
 
-export function Report({ words, progress, onPick }: Props) {
+export function Report({ words, progress, onPick, onReset }: Props) {
   const studied = words.filter((w) => progress[w.id]);
   const mastered = studied.filter((w) => masteryPct(progress, w.id) >= 75);
   const attempts = studied.reduce((sum, w) => {
@@ -89,6 +90,18 @@ export function Report({ words, progress, onPick }: Props) {
         </div>
       )}
       <p className="hint">단어를 누르면 그 단어의 STEP 1로 이동합니다.</p>
+
+      {/* 한 기기를 여러 사람이 돌려 쓸 때. 되돌릴 수 없으므로 확인을 받는다. */}
+      <button
+        className="resetlink"
+        onClick={() => {
+          if (window.confirm("이 브라우저에 저장된 학습 진도를 모두 지웁니다.\n되돌릴 수 없습니다. 계속할까요?")) {
+            onReset();
+          }
+        }}
+      >
+        처음부터 다시 시작 (진도 지우기)
+      </button>
     </>
   );
 }

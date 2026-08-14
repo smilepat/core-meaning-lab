@@ -1,7 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import type { GradeResult, Progress, Stage, Word } from "../shared/types.ts";
 import { fetchHealth, fetchWords } from "./lib/api.ts";
-import { hasSeenGuide, loadProgress, markGuideSeen, recordScore, stampSense } from "./lib/progress.ts";
+import {
+  clearProgress,
+  hasSeenGuide,
+  loadProgress,
+  markGuideSeen,
+  recordScore,
+  stampSense,
+} from "./lib/progress.ts";
 import { ContextStage } from "./components/ContextStage.tsx";
 import { Guide } from "./components/Guide.tsx";
 import { Masthead } from "./components/Masthead.tsx";
@@ -130,7 +137,19 @@ export default function App() {
             onNext={() => setStage("report")}
           />
         )}
-        {stage === "report" && <Report words={words} progress={progress} onPick={selectWord} />}
+        {stage === "report" && (
+          <Report
+            words={words}
+            progress={progress}
+            onPick={selectWord}
+            onReset={() => {
+              setProgress(clearProgress());
+              setStage("present");
+              setGroup("top");
+              setShowGuide(true);
+            }}
+          />
+        )}
       </main>
 
       <nav>

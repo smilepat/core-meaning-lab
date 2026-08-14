@@ -40,6 +40,23 @@ export function loadProgress(): Progress {
   }
 }
 
+/**
+ * 진도와 '안내 봤음' 표시를 함께 지운다.
+ *
+ * 한 기기를 여러 사람이 돌려 쓸 때 필요하다 — 앞사람의 숙련도 점과 '다음 단어' 추천을
+ * 뒷사람이 그대로 물려받으면 검증이 망가진다. 안내 표시까지 지우는 이유는, 새로 앉은
+ * 사람에게는 처음 여는 화면이 그대로 나와야 하기 때문이다.
+ */
+export function clearProgress(): Progress {
+  try {
+    localStorage.removeItem(STORE_KEY);
+    localStorage.removeItem(GUIDE_KEY);
+  } catch {
+    // 저장이 막힌 브라우저에서는 애초에 남은 것도 없다.
+  }
+  return {};
+}
+
 function save(progress: Progress): void {
   try {
     localStorage.setItem(STORE_KEY, JSON.stringify(progress));

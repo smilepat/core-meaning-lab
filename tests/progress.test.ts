@@ -1,7 +1,10 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from "vitest";
 import {
+  clearProgress,
+  hasSeenGuide,
   loadProgress,
+  markGuideSeen,
   masteryColor,
   masteryPct,
   recordScore,
@@ -60,6 +63,18 @@ describe("숙련도 계산", () => {
   it("저장된 값이 깨져 있으면 빈 진도로 시작한다", () => {
     localStorage.setItem("cml_progress_v1", "{{ 깨진 JSON");
     expect(loadProgress()).toEqual({});
+  });
+
+  it("초기화하면 진도와 '안내 봤음' 표시가 함께 지워진다", () => {
+    recordScore({}, "run", "ctx", 2);
+    markGuideSeen();
+    expect(loadProgress()).not.toEqual({});
+    expect(hasSeenGuide()).toBe(true);
+
+    expect(clearProgress()).toEqual({});
+    expect(loadProgress()).toEqual({});
+    // 새로 앉은 사람에게는 처음 여는 화면이 그대로 나와야 한다
+    expect(hasSeenGuide()).toBe(false);
   });
 
   it("숙련도 구간마다 색이 다르다", () => {

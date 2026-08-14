@@ -184,6 +184,10 @@
   .ring{width:44px;height:44px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
   .cell .w{font-size:14px;font-weight:700}
   .empty{text-align:center;color:var(--ink-soft);font-size:14px;padding:30px 10px}
+  /* 되돌릴 수 없는 동작이라 버튼처럼 크게 두지 않는다 */
+  .resetlink{display:block;margin:22px auto 0;border:none;background:none;font-family:inherit;
+    font-size:12px;color:var(--ink-soft);text-decoration:underline;cursor:pointer;padding:6px}
+  .resetlink:hover{color:var(--bad)}
 
   /* 단계 이동 바.
      fixed 였을 때는 뷰포트 맨 아래에 못박혀, 세로가 긴 화면에서 카드와 한참 떨어졌다.
